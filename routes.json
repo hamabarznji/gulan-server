@@ -1,0 +1,6 @@
+
+{
+    "user":{
+        "login":"/api/users/login"
+    }
+}
