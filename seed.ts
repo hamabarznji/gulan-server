@@ -1,10 +1,11 @@
 import prisma from './PrismaInstance';
 import { User } from '@prisma/client';
 import { v4 as uuidv4 } from 'uuid';
+import bcrypt from 'bcrypt';
 
 const users: User[] = [
-  { id: uuidv4(), name: 'Gullan', email: 'gullan@example.com', password: 'password1', role: 'ADMIN', themeColor: true },
-  { id: uuidv4(), name: 'User', email: 'user@example.com', password: 'password1', role: 'USER', themeColor: true },
+  { id: uuidv4(), name: 'Gullan', email: 'gullan@example.com', password:bcrypt.hashSync('password1', 10) , role: 'ADMIN', themeColor: true },
+  { id: uuidv4(), name: 'User', email: 'user@example.com', password: bcrypt.hashSync('password1', 10), role: 'USER', themeColor: true },
 ];
 
 async function seed() {
