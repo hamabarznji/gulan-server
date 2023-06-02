@@ -1,6 +1,7 @@
 
 {
     "user":{
-        "login":"/api/users/login"
+        "login":"/api/users/login",
+        "getUsers":"/api/users"
     }
 }
