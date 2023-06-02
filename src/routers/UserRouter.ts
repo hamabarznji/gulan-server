@@ -6,6 +6,11 @@ import verifyAuth from "../../middleware/verifyAuth";
 const router = Router();
 
 router.post(routes.user.login, UserController.login);
+router.post(routes.user.createUser, UserController.createUser);
+router.put(routes.user.updateUser, UserController.updateUser);
+router.get(routes.user.getUser, UserController.getUser);
+router.get(routes.user.getUser, UserController.getUsers);
+
 
 router.get(routes.user.getUsers, verifyAuth, UserController.getUsers);
 
