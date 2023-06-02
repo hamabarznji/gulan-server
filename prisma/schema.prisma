@@ -1,0 +1,105 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = "mysql://test@localhost:8889/prismatest"
+}
+
+model User {
+  id          String       @id @default(uuid())
+  name        String
+  email       String    @unique @db.VarChar(255)
+  password    String    @db.VarChar(255)
+  role        String
+  themeColor  Boolean   @default(true)
+  orders      Order[]
+  @@map(name: "user")
+}
+
+model ItemCategory {
+  id      Int     @id @default(autoincrement())
+  name    String
+  items   Item[]
+  @@map(name: "item_category")
+}
+
+
+
+model ExpenseCategory {
+  id        String     @id @default(uuid())
+  name      String
+  expenses  Expense[]
+  @@map(name: "expense_category")
+}
+
+model Expense {
+  id          String       @id @default(uuid())
+  category    ExpenseCategory @relation(fields: [categoryId], references: [id])
+  categoryId  String
+  name        String
+  price       Int
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  @@map(name: "expense")
+}
+model Item {
+  id          String            @id @default(uuid())
+  category    ItemCategory   @relation(fields: [categoryId], references: [id])
+  categoryId  Int
+  name        String
+  size        String
+  color       String
+  price       Float
+  buyingPrice Float
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+  orderedProducts OrderedProduct[]
+  @@map(name: "item")
+}
+
+model Order {
+  id          String             @id @default(uuid())
+  user        User            @relation(fields: [userId], references: [id])
+  userId      String
+  orderedProducts OrderedProduct[]
+  discount    Int
+  status      String
+  date        DateTime
+  description String?
+  updated     Boolean?
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+  @@map(name: "order")
+}
+
+model OrderedProduct {
+  id          String      @id @default(uuid())
+  order       Order    @relation(fields: [orderId], references: [id])
+  orderId     String
+  item        Item     @relation(fields: [itemId], references: [id])
+  itemId      String
+  quantity    Int
+  price       Float
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  @@map(name: "ordered_product")
+}
+
+
+model Payroll {
+  id          String       @id @default(uuid())
+  fname       String
+  lname       String
+  dob         DateTime
+  gender      Boolean
+  phone       String
+  email       String?
+  address     String
+  baseSalary  Int
+  role        String
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  @@map(name: "payroll")
+}
