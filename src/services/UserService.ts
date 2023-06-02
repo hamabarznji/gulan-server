@@ -1,9 +1,9 @@
-const UserModel = require("../models/user");
+import Prisma from "../../PrismaInstance";
 
 class UserService {
   async getUsers() {
     try {
-      return await UserModel.findAll();
+      return await Prisma.user.findMany();
     } catch (error) {
       console.error("Error retrieving users:", error);
       return error;
@@ -13,7 +13,12 @@ class UserService {
   async login(user) {
     try {
       const { email } = user;
-      const foundedUser = await UserModel.findOne({ where: { email } });
+      const foundedUser = await Prisma.user.findUnique({
+        where: {
+          email,
+        },
+      });
+      
       return foundedUser;
     } catch (error) {
       console.error("Error occurred during login:", error);
@@ -22,4 +27,4 @@ class UserService {
   }
 }
 
-module.exports = new UserService();
+export default new UserService();
