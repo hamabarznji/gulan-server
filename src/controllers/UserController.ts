@@ -7,7 +7,7 @@ class UserController {
     try {
       const users = await UserService.getUsers();
       const foundedUsers = users.map((user) => {
-        return { id: user.id, name: user.name, email: user.email, role: user.role, themeColor: user.themeColor }
+        return { id: user.id, name: user.username, role: user.role, themeColor: user.themeColor }
       })
       res.json(foundedUsers);
     } catch (error) {
@@ -22,7 +22,7 @@ class UserController {
       if (!user) {
         return res.status(404).json({ error: 'User not found' });
       }
-      res.json({ id: user.id, name: user.name, email: user.email, role: user.role, themeColor: user.themeColor }
+      res.json({ id: user.id, name: user.username, role: user.role, themeColor: user.themeColor }
       );
     } catch (error) {
       res.status(500).json({ error: 'Internal Server Error' });
@@ -78,11 +78,10 @@ class UserController {
 
   async login(req: Request, res: Response) {
     try {
-      const { email, password } = req.body;
-
-      const user = await UserService.login(email);
+      const { username, password } = req.body;
+      const user = await UserService.login(username);
       const isPasswordCorrect = await bcrypt.compare(password, user.password);
-
+   
       if (!user || !isPasswordCorrect) {
         return res.status(401).json({ error: 'Invalid Credentials' });
       }

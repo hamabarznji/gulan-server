@@ -51,11 +51,11 @@ class UserService {
     }
   }
 
-  async login( email: string): Promise<User | null> {
+  async login( username: string): Promise<User | null> {
     try {
       const foundedUser = await prisma.user.findUnique({
         where: {
-          email,
+          username,
         },
       });
 
