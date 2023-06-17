@@ -7,9 +7,8 @@
     "dev": "nodemon --exec ts-node app.ts && ts-node seed.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
     "seed": "ts-node prisma/seed.ts"
-
   },
-  "prisma":{
+  "prisma": {
     "seed": "ts-node prisma/seed.ts"
   },
   "author": "",
@@ -28,6 +27,8 @@
     "mysql2": "^3.3.3",
     "next": "^13.4.4",
     "nodemon": "^2.0.22",
+    "passport": "^0.6.0",
+    "passport-jwt": "^4.0.1",
     "sequelize": "^6.31.1",
     "typescript": "^5.1.3"
   },
