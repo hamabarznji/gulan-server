@@ -1,14 +1,22 @@
 import ExpenseService from '../services/ExpenseService';
-import jwt from 'jsonwebtoken';
 import { Request, Response } from 'express';
-import bcrypt from 'bcrypt';
+import convertDateStringToDate from '../../utils/convertDateStringToDate';
 class ExpenseController {
   async getExpenses(req: Request, res: Response) {
-    console.log('getExpenses');
     try {
       const expenses = await ExpenseService.getExpenses();
-
-      res.json(expenses);
+      const formattedExpenses = expenses.map((expense) => {
+        return {
+          id: expense.id,
+          categoryId: expense.categoryId,
+          description: expense.description,
+          amount: expense.amount,
+          createdAt: expense.createdAt,
+          updatedAt: expense.updatedAt,
+          categoryName: (expense as any).category?.name,
+        };
+      });
+      res.json(formattedExpenses);
     } catch (error) {
       res.status(500).json({ error: 'Internal Server Error' });
     }
@@ -30,32 +38,51 @@ class ExpenseController {
 
 
   async createExpense(req: Request, res: Response) {
+    const { createdAt, ...data } = req.body;
     try {
+      const expenseData = {
 
-      const user = await ExpenseService.createExpense(
-        req.body);
-      if (!user) {
+        categoryId: "ecdd7f00-ed82-45cf-aa19-927f74a455cb",
+        createdAt: convertDateStringToDate(createdAt),
+        ...data
+      };
+
+      const expense = await ExpenseService.createExpense(expenseData);
+
+      if (!expense) {
         return res.status(400).json({
           error: 'Bad Request'
         });
-
       }
 
-      res.json(user);
+      res.json(expense);
     } catch (error) {
       res.status(500).json({ error: error.message });
     }
   }
-  // async updateExpense(req: Request, res: Response) {
-  //   try {
-  //     const { id } = req.body;
-  //     const expense = await ExpenseService.(id, ...req.body);
-  //     return res.json(expense);
 
-  //   } catch (error) {
-  //     return res.status(500).json({ error: 'Internal Server Error' });
-  //   }
-  // }
+  async updateExpense(req: Request, res: Response) {
+   
+    try {
+      const { id} = req.body;
+
+      const formattedExpenses={
+        id:id,
+        categoryId: req.body.categoryId,
+        description: req.body.description,
+        amount: req.body.amount,
+        createdAt: req.body.createdAt,
+        updatedAt: req.body.updatedAt,
+        
+      }
+      const expense = await ExpenseService.updateExpense(id,formattedExpenses);
+      return res.json(expense);
+
+    } catch (error) {
+
+      return res.status(500).json({ error: 'Internal Server Error' });
+    }
+  }
 
 
 
