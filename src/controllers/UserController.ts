@@ -47,31 +47,31 @@ class UserController {
       res.status(500).json({ error: error.message });
     }
   }
-  async updateUser(req: Request, res: Response) {
+  async  updateUser(req: Request, res: Response) {
     try {
-      const { id,password } = req.body
-      if(password){
-        console.log(password)
-        const pass=bcrypt.hashSync(req.body.password , 10)
-        const user = await UserService.updateUser(id,{
-          ...req.body
-          ,password:pass
+      const { id, password } = req.body;
   
+      if (password) {
+        const hashedPassword = bcrypt.hashSync(password, 10);
+        const user = await UserService.updateUser(id, {
+          ...req.body,
+          password: hashedPassword,
         });
         return res.json(user);
       }
-      const user = await UserService.updateUser(id,req.body);
+  
+      const user = await UserService.updateUser(id, req.body);
+  
       if (!user) {
         return res.status(404).json({ error: 'User not found' });
       }
-      res.json(user);
+  
+      return res.json(user);
     } catch (error) {
-      res.status(500).json({ error: 'Internal Server Error' });
+      return res.status(500).json({ error: 'Internal Server Error' });
     }
-
-
-
   }
+  
 
 
 

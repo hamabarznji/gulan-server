@@ -1,15 +1,8 @@
 const { PrismaClient } = require('@prisma/client');
-const bcrypt = require('bcrypt');
 const prisma = new PrismaClient();
-const pass = bcrypt.hashSync('11111111', 10);
-const users = [
-  {
-    username: 'gulan',
-    password: pass,
-    role: 'admin',
-    themeColor: true,
-  },
-];
+import expenses from "../seedData/expenses";
+import users from "../seedData/users";
+import expenseCategories from "../seedData/expenseCategories";
 
 class Seeder {
   async seedUser() {
@@ -25,10 +18,38 @@ class Seeder {
     }
   }
 
+  async seedExpenseCategories() {
+    try {
+      const categories = await prisma.expenseCategory.findMany();
+      if (categories.length === 0) {
+        await prisma.expenseCategory.createMany({
+          data: expenseCategories,
+        });
+      }
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async seedExpenses() {
+    try {
+      const existingExpenses = await prisma.expense.findMany();
+      if (existingExpenses.length === 0) {
+        await prisma.expense.createMany({
+          data: expenses,
+        });
+      }
+    } catch (error) {
+      throw error;
+    }
+  }
+
   async seedData() {
     try {
       await prisma.$transaction(async (prisma) => {
         await this.seedUser();
+        await this.seedExpenseCategories();
+        await this.seedExpenses();
       });
     } catch (error) {
       throw error;

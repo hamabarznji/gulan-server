@@ -1,11 +1,17 @@
-
 {
-    "user":{
-        "login":"/api/users/login",
-        "getUsers":"/api/users",
-        "getUser":"/api/users/:id",
-        "createUser":"/api/users",
-        "updateUser":"/api/users"
-        
-    }
+  "user": {
+    "login": "/api/users/login",
+    "getUsers": "/api/users",
+    "getUser": "/api/users/:id",
+    "createUser": "/api/users",
+    "updateUser": "/api/users/:id"
+  },
+
+  "expense": {
+    "getExpenses": "/api/expenses",
+    "getExpense": "/api/expenses/:id",
+    "createExpense": "/api/expenses",
+    "updateExpense": "/api/expenses/:id",
+    "deleteExpense": "/api/expenses/:id"
+  }
 }

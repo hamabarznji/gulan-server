@@ -10,7 +10,7 @@ router.post(routes.user.createUser, UserController.createUser);
 
 router.use(passport.authenticate("jwt", { session: false }));
 
-router.put(routes.user.updateUser, UserController.updateUser);
+router.patch(routes.user.updateUser, UserController.updateUser);
 router.get(routes.user.getUser, UserController.getUser);
 router.get(routes.user.getUser, UserController.getUsers);
 router.get(routes.user.getUsers, verifyAuth, UserController.getUsers);

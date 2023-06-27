@@ -37,8 +37,8 @@ model Expense {
   id          String       @id @default(uuid())
   category    ExpenseCategory @relation(fields: [categoryId], references: [id])
   categoryId  String
-  name        String
-  price       Int
+  description        String
+  amount       Int
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
   @@map(name: "expense")
