@@ -11,7 +11,7 @@
     "getExpenses": "/api/expenses",
     "getExpense": "/api/expenses/:id",
     "createExpense": "/api/expenses",
-    "updateExpense": "/api/expenses/:id",
+    "updateExpense": "/api/expenses",
     "deleteExpense": "/api/expenses/:id"
   }
 }
