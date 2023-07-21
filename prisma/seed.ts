@@ -3,8 +3,7 @@ const prisma = new PrismaClient();
 import seedExpenses from "../seedData/expenses";
 import seedUser from "../seedData/users";
 import seedExpenseCategories from "../seedData/expenseCategories";
-import itemCategories from "../seedData/itemCategories";
-import seedItemCategories from "../seedData/vendors";
+import seedItemCategories from "../seedData/itemCategories";
 import seedVendors from "../seedData/vendors";
 class Seeder {
 
