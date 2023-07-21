@@ -8,6 +8,7 @@ const router = Router();
 
 router.use(passport.authenticate("jwt", { session: false }));
 router.get(routes.expense.getExpenses, ExpenseController.getExpenses);
+router.get(routes.expense.getTopExpense, ExpenseController.getTopExpenses);
 router.patch(routes.expense.updateExpense, ExpenseController.updateExpense);
 router.post(routes.expense.createExpense, ExpenseController.createExpense);
 //router.get(routes.expense.getExpense, ExpenseController.getExpense);

@@ -1,7 +1,8 @@
 import prisma from "../../PrismaInstance";
 import { Prisma, Expense } from "@prisma/client";
-import convertDateStringToDate from "../../utils/convertDateStringToDate";
 class ExpenseService {
+ 
+
   async getExpenses(): Promise<Expense[]> {
     try {
       return await prisma.expense.findMany({
@@ -61,6 +62,24 @@ class ExpenseService {
     } catch (error) {
       console.error("Error creating expense:", error);
       throw error;
+    }
+  }
+
+
+  async getTopExpenses(): Promise<Expense[]> {
+    try {
+      const expenses = await prisma.expense.findMany({
+        include: {
+          category: true,
+        },
+        orderBy: {
+          amount: 'desc',
+        },
+      });
+
+      return expenses;
+    } catch (error) {
+      throw new Error('Failed to retrieve expenses: ' + error.message);
     }
   }
 }

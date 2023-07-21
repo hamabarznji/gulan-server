@@ -62,20 +62,20 @@ class ExpenseController {
   }
 
   async updateExpense(req: Request, res: Response) {
-   
-    try {
-      const { id} = req.body;
 
-      const formattedExpenses={
-        id:id,
+    try {
+      const { id } = req.body;
+
+      const formattedExpenses = {
+        id: id,
         categoryId: req.body.categoryId,
         description: req.body.description,
         amount: req.body.amount,
         createdAt: req.body.createdAt,
         updatedAt: req.body.updatedAt,
-        
+
       }
-      const expense = await ExpenseService.updateExpense(id,formattedExpenses);
+      const expense = await ExpenseService.updateExpense(id, formattedExpenses);
       return res.json(expense);
 
     } catch (error) {
@@ -85,6 +85,42 @@ class ExpenseController {
   }
 
 
+
+  async getTopExpenses(req: Request, res: Response) {
+
+    try {
+      const expenses = await ExpenseService.getTopExpenses();
+      const groupedExpenses: { [key: string]: any[] } = {};
+
+      for (const categorizedExpense of expenses) {
+        let categoryName = categorizedExpense['category'].name as string;
+
+        if (categoryName in groupedExpenses) {
+
+          groupedExpenses[categoryName].push(categorizedExpense);
+        } else {
+          groupedExpenses[categoryName] = [categorizedExpense];
+        }
+      }
+      const summedGroupedExpenses: { [key: string]: number } = {};
+      for (const category in groupedExpenses) {
+        const expensesInCategory = groupedExpenses[category];
+        const sum = expensesInCategory.reduce((acc, curr) => acc + curr.amount, 0);
+        summedGroupedExpenses[category] = sum;
+      }
+
+      const sortedSummedGroupedExpensesArray = Object.entries(summedGroupedExpenses)
+        .sort((a, b) => b[1] - a[1])
+        .map(([category, sum]) => ({ category, sum }));
+        const labels =sortedSummedGroupedExpensesArray.map((item)=>item.category)
+
+      return res.status(200).json({data:sortedSummedGroupedExpensesArray,labels});
+
+    } catch (error) {
+
+      return res.status(500).json({ error: 'Internal Server Error' });
+    }
+  }
 
 
 
