@@ -50,4 +50,17 @@ const itemCategories = [
     name: "Beauty and Personal Care (Makeup, Skincare, Hair Accessories)"
   }
 ];
-export default itemCategories
+
+const seedItemCategories=async(prisma) =>{
+  try {
+    const categories = await prisma.itemCategory.findMany();
+    if (categories.length === 0) {
+      await prisma.itemCategory.createMany({
+        data: itemCategories,
+      });
+    }
+  } catch (error) {
+    throw error;
+  }
+}
+export default seedItemCategories
