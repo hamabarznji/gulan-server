@@ -5,6 +5,7 @@ import seedUser from "../seedData/users";
 import seedExpenseCategories from "../seedData/expenseCategories";
 import itemCategories from "../seedData/itemCategories";
 import seedItemCategories from "../seedData/vendors";
+import seedVendors from "../seedData/vendors";
 class Seeder {
 
 
@@ -30,6 +31,7 @@ class Seeder {
         await seedExpenseCategories(prisma);
         await seedExpenses(prisma);
         await seedItemCategories(prisma)
+        await seedVendors(prisma)
       });
     } catch (error) {
       throw error;
