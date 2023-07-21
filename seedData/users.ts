@@ -22,6 +22,17 @@ const users = [
       themeColor: true,
     },
   ];
-
-  export default users;
+  const seedUser=async(prisma)=> {
+    try {
+      const user = await prisma.user.findMany();
+      if (user.length === 0) {
+        await prisma.user.createMany({
+          data: users,
+        });
+      }
+    } catch (error) {
+      throw error;
+    }
+  }
+  export default seedUser;
 

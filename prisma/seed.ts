@@ -1,23 +1,12 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 import seedExpenses from "../seedData/expenses";
-import users from "../seedData/users";
+import seedUser from "../seedData/users";
 import seedExpenseCategories from "../seedData/expenseCategories";
 import itemCategories from "../seedData/itemCategories";
 import seedItemCategories from "../seedData/vendors";
 class Seeder {
-  async seedUser() {
-    try {
-      const user = await prisma.user.findMany();
-      if (user.length === 0) {
-        await prisma.user.createMany({
-          data: users,
-        });
-      }
-    } catch (error) {
-      throw error;
-    }
-  }
+
 
 
 
@@ -37,7 +26,7 @@ class Seeder {
   async seedData() {
     try {
       await prisma.$transaction(async () => {
-        await this.seedUser();
+        await seedUser(prisma);
         await seedExpenseCategories(prisma);
         await seedExpenses(prisma);
         await seedItemCategories(prisma)
