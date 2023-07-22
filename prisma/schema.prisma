@@ -125,8 +125,8 @@ model Order {
 
 model OrderedItem {
   id        String   @id @default(uuid())
-  order     Order    @relation(fields: [orderId], references: [id])
-  orderId   String
+  order     Order    @relation(fields: [order_id], references: [id])
+  order_id   String
   item      Item     @relation(fields: [item_id], references: [id])
   item_id   String
   qty  Int
