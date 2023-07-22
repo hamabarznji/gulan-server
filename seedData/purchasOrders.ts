@@ -5,11 +5,6 @@ const purchaseOrders = [
     purchased_at: new Date("2023-06-01T10:00:00.000Z"),
   },
   {
-    id: "23e1beec-52ad-4610-9c30-df47f5a1d24f",
-    vendor_id: "e41679c5-cdf4-420e-92c2-1b2685551092",
-    purchased_at: new Date("2023-06-12T10:00:00.000Z"),
-  },
-  {
     id: "8789608b-29d5-46bf-8c4f-eb95e5b7b52e",
     vendor_id: "e41679c5-cdf4-420e-92c2-1b2685551092",
     purchased_at: new Date("2023-06-22T10:00:00.000Z"),
@@ -29,11 +24,7 @@ const purchaseOrders = [
     vendor_id: "7b35693c-9b88-4a98-b244-158c461b1099",
     purchased_at: new Date("2023-07-16T10:00:00.000Z"),
   },
-  {
-    id: "e164b208-6056-4070-b43c-e602d2ef8ca6",
-    vendor_id: "7b35693c-9b88-4a98-b244-158c461b1099",
-    purchased_at: new Date("2023-07-27T10:00:00.000Z"),
-  },
+ 
 ];
 
 const seedPurchaseOrders = async (prisma) => {
