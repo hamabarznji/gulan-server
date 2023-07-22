@@ -5,23 +5,9 @@ import seedUser from "../seedData/users";
 import seedExpenseCategories from "../seedData/expenseCategories";
 import seedItemCategories from "../seedData/itemCategories";
 import seedVendors from "../seedData/vendors";
+import seedSizes from "../seedData/sizes";
+import seedColors from "../seedData/colors";
 class Seeder {
-
-
-
-
-  // async seedItemCategories() {
-  //   try {
-  //     const existingItemCategory = await prisma.itemCategory.findMany();
-  //     if (existingItemCategory.length === 0) {
-  //       await prisma.itemCategory.createMany({
-  //         data: itemCategories,
-  //       });
-  //     }
-  //   } catch (error) {
-  //     throw error;
-  //   }
-  // }
 
   async seedData() {
     try {
@@ -31,6 +17,8 @@ class Seeder {
         await seedExpenses(prisma);
         await seedItemCategories(prisma)
         await seedVendors(prisma)
+        await seedSizes(prisma)
+        await seedColors(prisma)
       });
     } catch (error) {
       throw error;
