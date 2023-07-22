@@ -16,8 +16,8 @@ model Item {
   purchasedItem purchasedItem[]
   color         Color?          @relation(fields: [color_id], references: [id])
   color_id      String?
-  size          Size?           @relation(fields: [sizeId], references: [id])
-  sizeId        String?
+  size          Size?           @relation(fields: [size_id], references: [id])
+  size_id        String?
 
   @@map(name: "item")
 }
@@ -73,7 +73,7 @@ model PurchaseOrder {
   id             String          @id @default(uuid())
   vendor         Vendor          @relation(fields: [vendor_id], references: [id])
   vendor_id       String
-  purchasedAt    DateTime        @default(now())
+  purchased_at    DateTime        @default(now())
   purchasedItems purchasedItem[]
 
   @@map(name: "purchase_order")
