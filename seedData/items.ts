@@ -1,7 +1,6 @@
 const items = [
   {
     "id": "21882825-89e0-4c33-ac05-fa35f80ae438",
-
     "category_id": "07419e4e-f966-4d13-9b74-e2f7297b61fe",
     "name": "ITEM 1",
     "code": "SD123",
@@ -38,7 +37,7 @@ const items = [
     "category_id": "07419e4e-f966-4d13-9b74-e2f7297b61fe",
     "name": "ITEM 5",
     "code": "FS567",
-    "color_id": "f4b84de6-2c1d-4a49-911b-e099faffd828",
+    "color_id": "ab2936f9-58a3-4c6d-9da6-f2f06cbe6414",
     "size_id": "afc89cf3-ed13-4889-a68a-e74dcb7fb3af"
   },
   {
@@ -46,7 +45,7 @@ const items = [
     "category_id": "07419e4e-f966-4d13-9b74-e2f7297b61fe",
     "name": "ITEM 6",
     "code": "WS777",
-    "color_id": "f4b84de6-2c1d-4a49-911b-e099faffd828",
+    "color_id": "ab2936f9-58a3-4c6d-9da6-f2f06cbe6414",
     "size_id": "afc89cf3-ed13-4889-a68a-e74dcb7fb3af"
   },
   {
@@ -55,15 +54,15 @@ const items = [
     "name": "ITEM 7",
     "code": "CS234",
 
-    "color_id": "f4b84de6-2c1d-4a49-911b-e099faffd828",
+    "color_id": "ab2936f9-58a3-4c6d-9da6-f2f06cbe6414",
     "size_id": "df326c6d-4439-41ea-8244-8f94141af282"
   },
   {
     "id": "bb6366d6-8f97-48c5-ab99-225d56e463bc",
     "category_id": "07419e4e-f966-4d13-9b74-e2f7297b61fe",
     "name": "ITEM 8",
-    "color_id": "ab15b026-7c3d-49be-9c4b-f7f4463f812c",
     "code": "SJ111",
+    "color_id": "ab15b026-7c3d-49be-9c4b-f7f4463f812c",
     "size_id": "df326c6d-4439-41ea-8244-8f94141af282"
   },
   {
