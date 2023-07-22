@@ -30,8 +30,8 @@ const expenseCategories = [
 ];
 const seedExpenseCategories=async(prisma) =>{
   try {
-    const categories = await prisma.expenseCategory.findMany();
-    if (categories.length === 0) {
+    const exsitingCategories = await prisma.expenseCategory.findMany();
+    if (exsitingCategories.length === 0) {
       await prisma.expenseCategory.createMany({
         data: expenseCategories,
       });

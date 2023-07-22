@@ -7,8 +7,8 @@ const colors = [
 ]
 const seedColors = async (prisma) => {
     try {
-        const categories = await prisma.color.findMany();
-        if (categories.length === 0) {
+        const exisitingColors = await prisma.color.findMany();
+        if (exisitingColors.length === 0) {
             await prisma.color.createMany({
                 data: colors,
             });
