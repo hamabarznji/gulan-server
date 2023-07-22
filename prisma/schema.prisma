@@ -8,17 +8,17 @@ datasource db {
 }
 
 model Item {
-  id            String          @id @default(uuid())
-  category      ItemCategory    @relation(fields: [category_id], references: [id])
-  category_id   String
-  name          String
-  code          String?
-  purchasedItem purchasedItem[]
-  color         Color?          @relation(fields: [color_id], references: [id])
-  color_id      String?
-  size          Size?           @relation(fields: [size_id], references: [id])
-  size_id        String?
-
+  id               String          @id @default(uuid())
+  category         ItemCategory    @relation(fields: [category_id], references: [id])
+  category_id      String
+  name             String
+  code             String?
+  purchasedItem    purchasedItem[]
+  color            Color?          @relation(fields: [color_id], references: [id])
+  color_id         String?
+  size             Size?           @relation(fields: [size_id], references: [id])
+  size_id          String?
+  orderedProducts  OrderedItem [] 
   @@map(name: "item")
 }
 
@@ -32,7 +32,7 @@ model Size {
 
 model Color {
   id    String @id @default(uuid())
-  color  String
+  color String
   items Item[]
 
   @@map(name: "color")
@@ -46,6 +46,7 @@ model purchasedItem {
   purchase_order_id String
   qty               Int
   price             Float
+
   @@map(name: "purchased_item")
 }
 
@@ -55,7 +56,7 @@ model User {
   password   String  @db.VarChar(255)
   role       String
   themeColor Boolean @default(true)
-  //orders     Order[]
+  orders     Order[]
 
   @@map(name: "user")
 }
@@ -71,8 +72,8 @@ model ItemCategory {
 model PurchaseOrder {
   id             String          @id @default(uuid())
   vendor         Vendor          @relation(fields: [vendor_id], references: [id])
-  vendor_id       String
-  purchased_at    DateTime        @default(now())
+  vendor_id      String
+  purchased_at   DateTime        @default(now())
   purchasedItems purchasedItem[]
 
   @@map(name: "purchase_order")
@@ -104,4 +105,33 @@ model Expense {
   updatedAt   DateTime        @updatedAt
 
   @@map(name: "expense")
+}
+
+model Order {
+  id              String           @id @default(uuid())
+  user            User             @relation(fields: [user_id], references: [id])
+  user_id         String
+  orderedItems OrderedItem[]
+  discount        Float
+  status          String
+  date            DateTime
+  description     String?
+  updated         Boolean?
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+
+  @@map(name: "order")
+}
+
+model OrderedItem {
+  id        String   @id @default(uuid())
+  order     Order    @relation(fields: [orderId], references: [id])
+  orderId   String
+  item      Item     @relation(fields: [item_id], references: [id])
+  item_id   String
+  qty  Int
+  price     Float
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@map(name: "ordered_item")
 }
