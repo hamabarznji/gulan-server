@@ -1,4 +1,4 @@
-const purchaseItems = [
+const seedToPurchaseItems = [
     {
         item_id: "550d46a7-a34d-49ff-8d96-bbc2759b6e9b",
         purchase_order_id: "13efa234-fd05-42a7-9fb5-f67cb5205fbc",
@@ -20,25 +20,25 @@ const purchaseItems = [
     },
     {
         item_id: "21882825-89e0-4c33-ac05-fa35f80ae438",
-        purchase_order_id: "23e1beec-52ad-4610-9c30-df47f5a1d24f",
+        purchase_order_id: "8789608b-29d5-46bf-8c4f-eb95e5b7b52e",
         qty: 20,
         price: 2.12
     },
     {
         item_id: "550d46a7-a34d-49ff-8d96-bbc2759b6e9b",
-        purchase_order_id: "23e1beec-52ad-4610-9c30-df47f5a1d24f",
+        purchase_order_id: "8789608b-29d5-46bf-8c4f-eb95e5b7b52e",
         qty: 34,
         price: 4
     },
     {
         item_id: "577cac06-3f19-4342-94ac-7d6f423aa6e2",
-        purchase_order_id: "23e1beec-52ad-4610-9c30-df47f5a1d24f",
+        purchase_order_id: "8789608b-29d5-46bf-8c4f-eb95e5b7b52e",
         qty: 40,
         price: 4
     },
     {
         item_id: "6ff4b9aa-c05c-4502-b732-300a672248cd",
-        purchase_order_id: "23e1beec-52ad-4610-9c30-df47f5a1d24f",
+        purchase_order_id: "8789608b-29d5-46bf-8c4f-eb95e5b7b52e",
         qty: 50,
         price: 1.6
     },
@@ -102,10 +102,10 @@ const purchaseItems = [
 
 const seedPurchaseItems = async (prisma) => {
     try {
-        const purchasedOrders = await prisma.purchasedItem.findMany();
-        if (purchasedOrders.length === 0) {
+        const purchaseItems = await prisma.purchasedItem.findMany();
+        if (purchaseItems.length === 0) {
             await prisma.purchasedItem.createMany({
-                data: purchaseItems,
+                data: seedToPurchaseItems,
             });
         }
     } catch (error) {
