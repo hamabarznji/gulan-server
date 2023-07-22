@@ -1,0 +1,52 @@
+// model Payroll {
+//   id         String   @id @default(uuid())
+//   fname      String
+//   lname      String
+//   dob        DateTime
+//   gender     Boolean
+//   phone      String
+//   email      String?
+//   address    String
+//   baseSalary Int
+//   role       String
+//   createdAt  DateTime @default(now())
+//   updatedAt  DateTime @updatedAt
+
+//   @@map(name: "payroll")
+// }
+________________________________________________________________
+
+
+model Order {
+  id              String           @id @default(uuid())
+  user            User             @relation(fields: [userId], references: [id])
+  userId          String
+  orderedProducts OrderedProduct[]
+  discount        Int
+  status          String
+  date            DateTime
+  description     String?
+  updated         Boolean?
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+
+  @@map(name: "order")
+}
+
+model OrderedProduct {
+  id        String   @id @default(uuid())
+  order     Order    @relation(fields: [orderId], references: [id])
+  orderId   String
+  item      Item     @relation(fields: [itemId], references: [id])
+  itemId    String
+  quantity  Int
+  price     Float
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map(name: "ordered_product")
+}
+________________________________________________________________
+
+
+//seed npx ts-node prisma/seed.ts
