@@ -8,6 +8,7 @@ import seedVendors from "../seedData/vendors";
 import seedSizes from "../seedData/sizes";
 import seedColors from "../seedData/colors";
 import seedItems from "../seedData/items";
+import seedPurchaseOrders from "../seedData/purchasOrders";
 class Seeder {
 
   async seedData() {
@@ -21,6 +22,7 @@ class Seeder {
         await seedSizes(prisma)
         await seedColors(prisma)
         await seedItems(prisma)
+        await seedPurchaseOrders(prisma)
       });
     } catch (error) {
       throw error;
