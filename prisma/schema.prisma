@@ -46,7 +46,6 @@ model purchasedItem {
   purchase_order_id String
   qty               Int
   price             Float
-
   @@map(name: "purchased_item")
 }
 
