@@ -6,8 +6,8 @@ const sizes = [
 ]
 const seedSizes = async (prisma) => {
     try {
-        const categories = await prisma.size.findMany();
-        if (categories.length === 0) {
+        const sizes = await prisma.size.findMany();
+        if (sizes.length === 0) {
             await prisma.size.createMany({
                 data: sizes,
             });

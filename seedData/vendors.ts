@@ -11,8 +11,8 @@ const vendors = [
 
 const seedVendors = async (prisma) => {
   try {
-    const existingItemCategory = await prisma.vendor.findMany();
-    if (existingItemCategory.length === 0) {
+    const existingVendor = await prisma.vendor.findMany();
+    if (existingVendor.length === 0) {
       await prisma.vendor.createMany({
         data: vendors,
       });
