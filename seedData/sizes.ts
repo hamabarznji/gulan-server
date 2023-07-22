@@ -1,4 +1,4 @@
-const sizes = [
+const sizesToSeed = [
     { id: "71e99c46-e4cb-42d8-8b2e-25c4662fa95c", "size": "Small" },
     { id: "afc89cf3-ed13-4889-a68a-e74dcb7fb3af", "size": "Medium" },
     { id: "df326c6d-4439-41ea-8244-8f94141af282", "size": "Large" },
@@ -9,7 +9,7 @@ const seedSizes = async (prisma) => {
         const sizes = await prisma.size.findMany();
         if (sizes.length === 0) {
             await prisma.size.createMany({
-                data: sizes,
+                data: sizesToSeed,
             });
         }
     } catch (error) {
