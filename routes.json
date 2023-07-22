@@ -14,5 +14,8 @@
     "updateExpense": "/api/expenses",
     "deleteExpense": "/api/expenses/:id",
     "getTopExpense": "/api/expenses/top"
+  },
+  "items": {
+    "getItems": "/api/items"
   }
 }
