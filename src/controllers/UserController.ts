@@ -87,7 +87,7 @@ class UserController {
       }
 
       const token = jwt.sign({ id: user.id, role: user.role, themeColor: user.themeColor }, 'mbsT');
-      res.cookie('token', token, { httpOnly: true, maxAge: 3600000 }); // Expires in 1 hour
+      res.cookie('token', token, { httpOnly: true  }); // Expires in 1 hour maxAge: 3600000
 
       return res.json({ id: user.id, token, role: user.role });
     } catch (error) {
