@@ -7,6 +7,8 @@ import { PrismaClient } from '@prisma/client';
 import UserRouter from './src/routers/UserRouter';
 import ExpenseRouter from './src/routers/ExpenseRouter';
 import ItemRouter from './src/routers/ItemRouter';
+import ItemCategoryRouter from './src/routers/ItemCategoryRouter';
+import VendorRouter from './src/routers/VendorRouter';
 const prisma = new PrismaClient();
 const app = express();
 
@@ -17,6 +19,8 @@ app.use(cors());
 app.use(UserRouter);
 app.use(ExpenseRouter);
 app.use(ItemRouter);
+app.use(ItemCategoryRouter);
+app.use(VendorRouter);
 
 
 app.listen(process.env.PORT || 3001, () =>
