@@ -8,13 +8,42 @@ class ItemCategoryController {
 
 
 
-  }catch (error) {
-    res.status(500).json({ error: 'Internal Server Error' + error.message });
+    } catch (error) {
+      res.status(500).json({ error: 'Internal Server Error' + error.message });
+    }
+
+  }
+
+
+  async addItemCategory(req: Request, res: Response) {
+    try {
+
+      const category = await ItemCategoryService.addItemCategory({
+        ...req.body,
+      });
+      res.json(category);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
   }
 
 
 
+  async updateItemCategory(req: Request, res: Response) {
 
+    try {
+      console.log(req.body);
+      const { id } = req.params;
+      const cateogry = await ItemCategoryService.updateItemCategory(id, req.body);
+
+      if (!cateogry) {
+        return res.status(404).json({ error: 'Cateogry not found' });
+      }
+
+      return res.json(cateogry);
+    } catch (error) {
+      return res.status(500).json({ error: 'Internal Server Error' });
+    }
   }
 }
 
