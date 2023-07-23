@@ -17,5 +17,11 @@
   },
   "items": {
     "getItems": "/api/items"
+  },
+  "itemCategories":{
+    "getItemCategories": "/api/items/categories"
+  },
+  "vendors":{
+    "getVendors": "/api/items/vendors"
   }
 }
