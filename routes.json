@@ -19,9 +19,15 @@
     "getItems": "/api/items"
   },
   "itemCategories":{
-    "getItemCategories": "/api/items/categories"
+    "getItemCategories": "/api/items/categories",
+    "addItemCategory": "/api/items/categories",
+    "updateItemCategory": "/api/items/categories/:id"
+
   },
   "vendors":{
-    "getVendors": "/api/items/vendors"
+    "getVendors": "/api/items/vendors",
+    "addVendor": "/api/items/vendors",
+    "updateVendor": "/api/items/vendors/:id"
+
   }
 }
