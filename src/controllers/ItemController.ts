@@ -11,6 +11,7 @@ class ItemController {
           qty: item["qty"],
           purchaseOrderId: item["purchase_order_id"],
           price: item["price"],
+          sellingPrice: item["item"].selling_price,
           category_id: item["item"].category_id,
           itemName: item["item"].name,
           itemCode: item["item"].code,

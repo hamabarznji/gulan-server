@@ -13,6 +13,7 @@ model Item {
   category_id      String
   name             String
   code             String?
+  selling_price    Float
   purchasedItem    purchasedItem[]
   color            Color?          @relation(fields: [color_id], references: [id])
   color_id         String?

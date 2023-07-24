@@ -4,6 +4,7 @@ CREATE TABLE `item` (
     `category_id` VARCHAR(191) NOT NULL,
     `name` VARCHAR(191) NOT NULL,
     `code` VARCHAR(191) NULL,
+    `selling_price` DOUBLE NOT NULL,
     `color_id` VARCHAR(191) NULL,
     `size_id` VARCHAR(191) NULL,
 
