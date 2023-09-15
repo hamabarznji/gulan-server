@@ -6,6 +6,7 @@ import cors from 'cors';
 import { PrismaClient } from '@prisma/client';
 import UserRouter from './src/routers/UserRouter';
 import ExpenseRouter from './src/routers/ExpenseRouter';
+import ExpenseCategoriesRouter from './src/routers/ExpenseCategoriesRouter';
 import ItemRouter from './src/routers/ItemRouter';
 import ItemCategoryRouter from './src/routers/ItemCategoryRouter';
 import VendorRouter from './src/routers/VendorRouter';
@@ -18,6 +19,7 @@ app.use(cors());
 
 app.use(UserRouter);
 app.use(ExpenseRouter);
+app.use(ExpenseCategoriesRouter);
 app.use(ItemRouter);
 app.use(ItemCategoryRouter);
 app.use(VendorRouter);
