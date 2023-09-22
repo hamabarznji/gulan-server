@@ -33,7 +33,8 @@
   },
   "orders":{
     "purchasedOrders":{
-      "getPurchasedOrders": "/api/orders/purchased"
+      "getPurchasedOrders": "/api/orders/purchased",
+      "getItemsByPurchasedOrder": "/api/orders/purchased/:id/items"
     }
 
 
