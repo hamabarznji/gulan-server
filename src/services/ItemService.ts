@@ -16,7 +16,7 @@ class ItemService {
                         }
                     }
                 }
-            })
+            }) 
                 ;
         } catch (error) {
             console.error('Error retrieving expenses:', error);

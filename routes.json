@@ -30,5 +30,13 @@
     "addVendor": "/api/items/vendors",
     "updateVendor": "/api/items/vendors/:id"
 
+  },
+  "orders":{
+    "purchasedOrders":{
+      "getPurchasedOrders": "/api/orders/purchased"
+    }
+
+
   }
+  
 }

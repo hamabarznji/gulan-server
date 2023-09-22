@@ -10,6 +10,7 @@ import ExpenseCategoriesRouter from './src/routers/ExpenseCategoriesRouter';
 import ItemRouter from './src/routers/ItemRouter';
 import ItemCategoryRouter from './src/routers/ItemCategoryRouter';
 import VendorRouter from './src/routers/VendorRouter';
+import PurchasedOrdersRouter from './src/routers/PurchasedOrdersRouter';
 const prisma = new PrismaClient();
 const app = express();
 
@@ -23,6 +24,7 @@ app.use(ExpenseCategoriesRouter);
 app.use(ItemRouter);
 app.use(ItemCategoryRouter);
 app.use(VendorRouter);
+app.use(PurchasedOrdersRouter);
 
 
 app.listen(process.env.PORT || 3001, () =>
