@@ -11,12 +11,12 @@ class ItemController {
           qty: item["qty"],
           purchaseOrderId: item["purchase_order_id"],
           price: item["price"],
-          sellingPrice: item["item"].selling_price,
+          selling_price: item["item"].selling_price,
           category_id: item["item"].category_id,
-          itemName: item["item"].name,
+          name: item["item"].name,
           itemCode: item["item"].code,
-          itemColorId: item["item"].color_id,
-          itemSizeId: item["item"].size_id,
+          color_id: item["item"].color_id,
+          size_id: item["item"].size_id,
           itemColor: item["item"]['color'].color,
           itemSize: item["item"]['size'].size,
           categoryName: item["item"]['category'].name
@@ -67,7 +67,7 @@ class ItemController {
           count: 0,
           sellingPrice: item.selling_price,
           price: 0,
-          itemName: item.name,
+          
         }
       })  
             console.log(fixedItems);
