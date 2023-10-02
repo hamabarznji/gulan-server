@@ -17,7 +17,10 @@
     "getExpenseCategories": "/api/expenses/categories"
   },
   "items": {
-    "getItems": "/api/items"
+    "getItems": "/api/items",
+    "addItem": "/api/items/add",
+    "getItemById": "/api/items/:id/purchased",
+    "getItemInfo": "/api/items/info"
   },
   "itemCategories":{
     "getItemCategories": "/api/items/categories",
