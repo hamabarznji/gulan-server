@@ -1,12 +1,61 @@
 import prisma from "../../PrismaInstance";
-import { Prisma, Item } from "@prisma/client";
+import {  Item, Prisma, purchasedItem } from "@prisma/client";
+import ItemCategoryService from "./ItemCategoryService";
+import ItemColorService from "./ItemColorService";
+import ItemSizeService from "./ItemSizeService";
 class ItemService {
 
 
-    async getItems(): Promise<Item[]> {
+    async getItems(): Promise<{ items: Item[], purchasedItems: purchasedItem[] }> {
         try {
-            return await prisma.purchasedItem.findMany({
+            const items = await prisma.item.findMany({
+                include: {
+                    color: true,
+                    size: true,
+                    category: true,
+                }
+            });
+            const purchasedItems= await prisma.purchasedItem.findMany({
               
+                include: {
+                    item: {
+                        include: {
+                            color: true,
+                            size: true, 
+                            category: true
+                        }
+                    }
+                }
+            }) 
+                return {
+                    items,
+                    purchasedItems: purchasedItems
+                }
+        } catch (error) {
+            console.error('Error retrieving items:', error);
+            throw new Error('Failed to retrieve items');
+        }
+    }
+    async getItemCatColorSize(): Promise<{ categories: any[], colors: any[], sizes: any[],}> {
+        try {
+            return {
+                categories: await ItemCategoryService.getCategories(),
+                colors: await ItemColorService.getColors(),
+                sizes: await ItemSizeService.getSizes()
+        
+            }
+        } catch (error) {
+            throw new Error('Failed to retrieve item info');
+        }
+    }
+    
+
+    async getItemById(id: string): Promise<Item[] | null> {
+        try {
+            const items = await prisma.purchasedItem.findMany({
+                where: {
+                    item_id: id
+                },
                 include: {
                     item: {
                         include: {
@@ -16,15 +65,28 @@ class ItemService {
                         }
                     }
                 }
-            }) 
-                ;
+            });
+    
+            return items || null; // Return null if no items are found
         } catch (error) {
-            console.error('Error retrieving expenses:', error);
-            throw new Error('Failed to retrieve expenses');
+            console.error('Error retrieving items:', error);
+            throw new Error('Failed to retrieve items');
         }
     }
+    
+    
 
-
+    async addItem(item:Item ): Promise<Item> {
+        try {
+          return await prisma.item.create({
+            data: item,
+          });
+        } catch (error) {
+          console.error("Error adding item:", error);
+          throw error;
+        }
+      }
+    
 
 
 
