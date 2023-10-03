@@ -20,7 +20,8 @@
     "getItems": "/api/items",
     "addItem": "/api/items/add",
     "getItemById": "/api/items/:id/purchased",
-    "getItemInfo": "/api/items/info"
+    "getItemInfo": "/api/items/info",
+    "updateItem": "/api/items/update/:id"
   },
   "itemCategories":{
     "getItemCategories": "/api/items/categories",
