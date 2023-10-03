@@ -20,7 +20,6 @@ class ItemController {
           itemColor: item["item"]['color'].color,
           itemSize: item["item"]['size'].size,
           categoryName: item["item"]['category'].name
-
         }
       })
 
@@ -56,21 +55,21 @@ class ItemController {
       });
 
 
-    const fixedItems=  filteredItems.flatMap((item) => {
+      const fixedItems = filteredItems.flatMap((item) => {
         return {
           ...item,
           qty: 0,
           itemSize: item['size'].size,
           itemColor: item['color'].color,
           categoryName: item['category'].name,
-          purchasedPrice:0,
+          purchasedPrice: 0,
           count: 0,
           sellingPrice: item.selling_price,
           price: 0,
-          
+
         }
-      })  
-            console.log(fixedItems);
+      })
+      console.log(fixedItems);
 
       res.json(finalItems.concat(fixedItems));
     } catch (error) {
@@ -164,6 +163,19 @@ class ItemController {
       res.json(item);
     } catch (error) {
       res.status(500).json({ error: error.message });
+    }
+  }
+
+
+  async updateItem(req: Request, res: Response) {
+    try {
+      const { id } = req.params;
+    
+    const item = await ItemService.updateItem(id, req.body);
+
+      return res.status(200).json(item);
+    } catch (error) {
+      return res.status(500).json({ error: 'Internal Server Error' });
     }
   }
 
