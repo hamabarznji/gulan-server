@@ -19,22 +19,32 @@ class PurchasedOrderService {
       throw new Error('Failed to retrieve purchased orders');
     }
   }
-  async getItemsByPurchasedOrder(id:string): Promise<purchasedItem[]> {
+  async getItemsByPurchasedOrder(id: string): Promise<purchasedItem[]> {
     try {
       return await prisma.purchasedItem.findMany({
         where: {
           purchase_order_id: id,
         },
         include: {
-          item: true,
-        }
+          item: {
+            include: {
+              category: true,
+              size: true,    
+              color: true,   
+            },
+            
+            
+
+       
+           
+          },
+        },
       });
-      
     } catch (error) {
-      console.error('Error retrieving purchased orders:', error);
       throw new Error('Failed to retrieve purchased orders');
     }
   }
+  
 
   
 }

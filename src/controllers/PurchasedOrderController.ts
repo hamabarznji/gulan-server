@@ -21,18 +21,42 @@ class PurchasedOrderContoller {
 
   }
   async getItemsByPurchasedOrder(req: Request, res: Response) {
-    const {id}=req.params
-    console.log(id);
+    const { id } = req.params;
     try {
-      const purchasedItems = await PurchasedItemsService.getItemsByPurchasedOrder(id)
-    
-      return res.status(200).json(purchasedItems);
+      const purchasedItems = await PurchasedItemsService.getItemsByPurchasedOrder(id);
+      console.log(purchasedItems);
+      const items = purchasedItems.map((item) => {
+        return {
+          category_id: item['item'].category_id,
+          category: item['item'].category.name,
+          color_id: item['item'].color_id,
+          color: item['item'].color.color,
+          size_id: item['item'].size_id,
+          size: item['item'].size.size,
+          name: item['item'].name,
+          selling_price: item['item'].selling_price,
+          item_id: item['item'].id,
+          id: item.id,
+          purchase_order_id: item.purchase_order_id,
+          qty: item.qty,
+          price: item.price,
 
+
+        }
+      })
+      // if (!purchasedItems) {
+      //     return res.status(404).json({ error: 'Purchased items not found' });
+      // }
+
+      // const { item, ...rest } = purchasedItems;
+      // const updatedObject = { ...rest, ...item };
+
+      return res.status(200).json(items);
     } catch (error) {
       res.status(500).json({ error: 'Internal Server Error' + error.message });
     }
-
   }
+
 
 
 }
