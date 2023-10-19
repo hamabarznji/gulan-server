@@ -7,7 +7,7 @@
     "updateUser": "/api/users/:id"
   },
 
-  "expense": {
+  "expense": { 
     "getExpenses": "/api/expenses",
     "getExpense": "/api/expenses/:id",
     "createExpense": "/api/expenses",
@@ -33,6 +33,21 @@
     "getVendors": "/api/items/vendors",
     "addVendor": "/api/items/vendors",
     "updateVendor": "/api/items/vendors/:id"
+
+  },
+  "colors":{
+    "getColors": "/api/items/colors",
+    "addColor": "/api/items/colors",
+    "updateColor": "/api/items/colors/:id"
+
+  
+
+  },
+  "sizes":{
+    "getSizes": "/api/items/sizes",
+    "addSize": "/api/items/sizes",
+    "updateSize": "/api/items/sizes/:id"
+
 
   },
   "orders":{
