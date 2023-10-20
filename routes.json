@@ -7,7 +7,7 @@
     "updateUser": "/api/users/:id"
   },
 
-  "expense": { 
+  "expense": {
     "getExpenses": "/api/expenses",
     "getExpense": "/api/expenses/:id",
     "createExpense": "/api/expenses",
@@ -21,42 +21,34 @@
     "addItem": "/api/items/add",
     "getItemById": "/api/items/:id/purchased",
     "getItemInfo": "/api/items/info",
-    "updateItem": "/api/items/update/:id"
+    "updateItem": "/api/items/update/:id",
+    "getItemsForPruchaseInvoice": "/api/items/for_pruchase_invoice"
   },
-  "itemCategories":{
+  "itemCategories": {
     "getItemCategories": "/api/items/categories",
     "addItemCategory": "/api/items/categories",
     "updateItemCategory": "/api/items/categories/:id"
-
   },
-  "vendors":{
+  "vendors": {
     "getVendors": "/api/items/vendors",
     "addVendor": "/api/items/vendors",
     "updateVendor": "/api/items/vendors/:id"
-
   },
-  "colors":{
+  "colors": {
     "getColors": "/api/items/colors",
     "addColor": "/api/items/colors",
     "updateColor": "/api/items/colors/:id"
-
-  
-
   },
-  "sizes":{
+  "sizes": {
     "getSizes": "/api/items/sizes",
     "addSize": "/api/items/sizes",
     "updateSize": "/api/items/sizes/:id"
-
-
   },
-  "orders":{
-    "purchasedOrders":{
+  "orders": {
+    "purchasedOrders": {
       "getPurchasedOrders": "/api/orders/purchased",
-      "getItemsByPurchasedOrder": "/api/orders/purchased/:id/items"
+      "getItemsByPurchasedOrder": "/api/orders/purchased/:id/items",
+      "addPurchaseOrder": "/api/orders/purchase/add"
     }
-
-
   }
-  
 }
