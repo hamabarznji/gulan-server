@@ -1,6 +1,28 @@
 import { Request, Response } from 'express';
 import PurchasedItemsService from '../services/PurchasedOrderService';
 class PurchasedOrderContoller {
+  async addPurchaseOrder(req: Request, res: Response) {
+    
+
+    try {
+      const refactoredData=req?.body?.map((item)=>{
+        return{
+          item_id:item.item_id.toString(),
+          qty:item.qty,
+          price:item.price
+        }
+      })
+      const order = await PurchasedItemsService.addPurchaseOrder(refactoredData)
+     
+      return res.status(200).json(order);
+
+
+
+    } catch (error) {
+      res.status(500).json(error.message );
+    }
+
+  }
   async getPurchasedOrders(req: Request, res: Response) {
     try {
       const purchasedItems = await PurchasedItemsService.getPurchasedOrders()

@@ -73,7 +73,16 @@ class ItemService {
             throw new Error('Failed to retrieve items');
         }
     }
+    async getItemsForPruchaseInvoice(): Promise<Item[] | null> {
+        try {
+            const items = await prisma.item.findMany();
 
+            return items || null; // Return null if no items are found
+        } catch (error) {
+            console.error('Error retrieving items:', error);
+            throw new Error('Failed to retrieve items');
+        }
+    }
 
 
     async addItem(item: Item): Promise<Item> {
@@ -100,8 +109,17 @@ class ItemService {
             throw error;
         }
     }
-
-
+    async addPurchaseOrderInvoice( item:Item): Promise<purchasedItem> {
+        try {
+            return await prisma.purchasedItem.add({
+               
+                data: item,
+            });
+        } catch (error) {
+            console.error("Error updating item:", error);
+            throw error;
+        }
+    }
 }
 
 export default new ItemService();
