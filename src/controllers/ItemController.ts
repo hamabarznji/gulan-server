@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import ItemService from '../services/ItemService';
+import PurchasedOrderService from '../services/PurchasedOrderService';
 class ItemController {
   async getItems(req: Request, res: Response) {
     try {
@@ -147,6 +148,24 @@ class ItemController {
 
 
       res.json(finalItems);
+    } catch (error) {
+      res.status(500).json({ error: 'Internal Server Error' + error.message });
+    }
+  }
+  async getItemsForPruchaseInvoice(req: Request, res: Response) {
+    try {
+      const items = await ItemService.getItemsForPruchaseInvoice();
+    
+const refacotredItems=items.map((item)=>{
+  return {
+    id:item.id,
+    value:item.id,
+    name:item.name,
+    label:item.name
+  }
+})
+
+      res.json(refacotredItems);
     } catch (error) {
       res.status(500).json({ error: 'Internal Server Error' + error.message });
     }
