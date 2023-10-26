@@ -12,6 +12,7 @@ class PurchasedOrderContoller {
           price:item.price
         }
       })
+
       const order = await PurchasedItemsService.addPurchaseOrder(refactoredData)
      
       return res.status(200).json(order);
@@ -26,14 +27,8 @@ class PurchasedOrderContoller {
   async getPurchasedOrders(req: Request, res: Response) {
     try {
       const purchasedItems = await PurchasedItemsService.getPurchasedOrders()
-      const result = purchasedItems.map((item) => {
-        return {
-          ...item,
-          vendor: item['vendor'].name
-
-        }
-      })
-      return res.status(200).json(result);
+   
+      return res.status(200).json(purchasedItems);
 
 
 
@@ -46,7 +41,6 @@ class PurchasedOrderContoller {
     const { id } = req.params;
     try {
       const purchasedItems = await PurchasedItemsService.getItemsByPurchasedOrder(id);
-      console.log(purchasedItems);
       const items = purchasedItems.map((item) => {
         return {
           category_id: item['item'].category_id,
