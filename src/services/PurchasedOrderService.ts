@@ -6,13 +6,6 @@ class PurchasedOrderService {
 
   async addPurchaseOrder(data: any): Promise<[]> {
     const uniqueId = uuidv4();
-    const now = new Date();
-    const formattedDate = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}.${String(now.getMilliseconds()).padStart(3, '0')}`;
-
-    console.log(formattedDate);
-
-
-
     try {
       const order = await prisma.purchaseOrder.create({
         data: {
@@ -45,7 +38,6 @@ class PurchasedOrderService {
     try {
       return await prisma.PurchaseOrder.findMany();
     } catch (error) {
-      console.error('Error retrieving purchased orders:', error);
       throw new Error('Failed to retrieve purchased orders');
     }
   }
