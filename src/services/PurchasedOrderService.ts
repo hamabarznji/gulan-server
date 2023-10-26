@@ -5,6 +5,7 @@ class PurchasedOrderService {
 
 
   async addPurchaseOrder(data: any): Promise<[]> {
+
     const uniqueId = uuidv4();
     try {
       const order = await prisma.purchaseOrder.create({
@@ -15,11 +16,14 @@ class PurchasedOrderService {
       if (!order) {
         throw new Error('Failed to create purchased order');
       }
-      const refactoredData = data?.map((item) => {
+      const refactoredData = data?.map((item:any) => {
         return {
-          ...item,
+          
           purchase_order_id: order.id,
-          item_id: item.item_id.toString()
+          item_id: item.item_id.toString(),
+          price: parseFloat(item.price),
+          qty:parseInt(item.qty)
+          
         }
       }
       )
