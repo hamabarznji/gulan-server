@@ -61,7 +61,6 @@ CREATE TABLE `item_category` (
 -- CreateTable
 CREATE TABLE `purchase_order` (
     `id` VARCHAR(191) NOT NULL,
-    `vendor_id` VARCHAR(191) NOT NULL,
     `purchased_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
 
     PRIMARY KEY (`id`)
@@ -137,9 +136,6 @@ ALTER TABLE `purchased_item` ADD CONSTRAINT `purchased_item_item_id_fkey` FOREIG
 
 -- AddForeignKey
 ALTER TABLE `purchased_item` ADD CONSTRAINT `purchased_item_purchase_order_id_fkey` FOREIGN KEY (`purchase_order_id`) REFERENCES `purchase_order`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE `purchase_order` ADD CONSTRAINT `purchase_order_vendor_id_fkey` FOREIGN KEY (`vendor_id`) REFERENCES `vendor`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `expense` ADD CONSTRAINT `expense_categoryId_fkey` FOREIGN KEY (`categoryId`) REFERENCES `expense_category`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
