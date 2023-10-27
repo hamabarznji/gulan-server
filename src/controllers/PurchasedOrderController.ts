@@ -37,6 +37,7 @@ class PurchasedOrderContoller {
     }
 
   }
+
   async getItemsByPurchasedOrder(req: Request, res: Response) {
     const { id } = req.params;
     try {
@@ -73,8 +74,19 @@ class PurchasedOrderContoller {
     }
   }
 
+  async updatePurchasedItem(req: Request, res: Response) {
+    const { id } = req.params;
+    
+    try {
+      const updatedItems = await PurchasedItemsService.updatePurchasedItem(id,req.body)
+   
+      return res.status(200).json(updatedItems);
 
-
+    } catch (error) {
+      res.status(500).json({ error: 'Internal Server Error' + error.message });
+    }
+  
+  }
 }
 
 export default new PurchasedOrderContoller();

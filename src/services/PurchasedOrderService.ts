@@ -69,7 +69,24 @@ class PurchasedOrderService {
   }
 
 
-
+  async updatePurchasedItem(
+    id: string,
+    data: any
+  ): Promise<purchasedItem | null> { 
+    try {
+      return await prisma.purchasedItem.update({
+        where: {
+          id,
+        },
+        data: data,
+      });
+    } catch (error) {
+      console.error("Error Updating Item:", error);
+      throw error;
+    }
+  }
+  
 }
+
 
 export default new PurchasedOrderService();
