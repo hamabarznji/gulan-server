@@ -22,7 +22,8 @@
     "getItemById": "/api/items/:id/purchased",
     "getItemInfo": "/api/items/info",
     "updateItem": "/api/items/update/:id",
-    "getItemsForPruchaseInvoice": "/api/items/for_pruchase_invoice"
+    "getItemsForPruchaseInvoice": "/api/items/for_pruchase_invoice",
+    "getItemByIdForPurchaseInvoice": "/api/items/for_pruchase_invoice/:id"
   },
   "itemCategories": {
     "getItemCategories": "/api/items/categories",
@@ -48,7 +49,8 @@
     "purchasedOrders": {
       "getPurchasedOrders": "/api/orders/purchased",
       "getItemsByPurchasedOrder": "/api/orders/purchased/:id/items",
-      "addPurchaseOrder": "/api/orders/purchase/add"
+      "addPurchaseOrder": "/api/orders/purchase/add",
+      "updatePurchasedItem": "/api/orders/purchase/:id/update"
     }
   }
 }
