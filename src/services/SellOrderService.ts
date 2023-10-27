@@ -16,6 +16,14 @@ class SellOrderService {
       throw new Error('Failed to retrieve selling orders');
     }
   }
+  async getOrderedItems(): Promise<Order[]> {
+    try {
+      return await prisma.orderedItem.findMany();
+    } catch (error) {
+      console.error('Error retrieving selling ordered items:', error);
+      throw new Error('Failed to retrieve ordered items');
+    }
+  }
   async getSellOrdersByOrderID(id:string): Promise<OrderedItem[]> {
     try {
       return await prisma.orderedItem.findMany({
