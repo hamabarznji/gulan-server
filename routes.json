@@ -46,6 +46,13 @@
     "updateSize": "/api/items/sizes/:id"
   },
   "orders": {
+    "sellOrders":{
+      "getSellOrders": "/api/orders/sell",
+      "getItemsBySellOrder": "/api/orders/sell/:id/items",
+      "createSellOrder": "/api/orders/sell/create",
+      "updateSellItem": "/api/orders/sell/:id/update"
+
+    },
     "purchasedOrders": {
       "getPurchasedOrders": "/api/orders/purchased",
       "getItemsByPurchasedOrder": "/api/orders/purchased/:id/items",
