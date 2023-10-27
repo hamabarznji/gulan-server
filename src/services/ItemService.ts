@@ -73,6 +73,21 @@ class ItemService {
             throw new Error('Failed to retrieve items');
         }
     }
+    async getItemByIdForPurchaseInvoice(id: string): Promise<Item[] | null> {
+        try {
+            const items = await prisma.item.findUnique({
+                where: {
+                    id: id
+                },
+                
+            });
+
+            return items || null; // Return null if no items are found
+        } catch (error) {
+            console.error('Error retrieving item:', error);
+            throw new Error(`Failed to retrieve item. ${error}`);
+        }
+    }
     async getItemsForPruchaseInvoice(): Promise<Item[] | null> {
         try {
             const items = await prisma.item.findMany();
