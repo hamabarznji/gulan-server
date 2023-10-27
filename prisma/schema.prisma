@@ -109,10 +109,6 @@ model Order {
   user_id         String
   orderedItems OrderedItem[]
   discount        Float
-  status          String
-  date            DateTime
-  description     String?
-  updated         Boolean?
   createdAt       DateTime         @default(now())
   updatedAt       DateTime         @updatedAt
 
