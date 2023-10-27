@@ -79,7 +79,12 @@ class ItemService {
                 where: {
                     id: id
                 },
-                
+                include: {
+                    color: true,
+                    size: true,
+                    category: true
+                }
+
             });
 
             return items || null; // Return null if no items are found
@@ -106,13 +111,13 @@ class ItemService {
                 data: item,
             });
         } catch (error) {
-            throw error; 
+            throw error;
         }
     }
 
-    async updateItem(id: string, item:Item): Promise<Item> {
+    async updateItem(id: string, item: Item): Promise<Item> {
         try {
-            console.log({item,id});
+            console.log({ item, id });
             return await prisma.item.update({
                 where: {
                     id,
@@ -124,10 +129,10 @@ class ItemService {
             throw error;
         }
     }
-    async addPurchaseOrderInvoice( item:Item): Promise<purchasedItem> {
+    async addPurchaseOrderInvoice(item: Item): Promise<purchasedItem> {
         try {
             return await prisma.purchasedItem.add({
-               
+
                 data: item,
             });
         } catch (error) {
