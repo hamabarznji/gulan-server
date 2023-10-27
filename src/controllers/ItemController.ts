@@ -93,7 +93,6 @@ class ItemController {
     const { id } = req.params;
     try {
       const item = await ItemService.getItemById(id);
-      console.log();
       if (item.length == 0) {
         return res.status(404).json({ error: 'Item not found' });
       }
@@ -115,7 +114,6 @@ class ItemController {
           itemSize: item["item"]['size'].size,
           categoryName: item["item"]['category'].name,
           invoiceQty: 1
-
         }
       })
 
@@ -155,15 +153,15 @@ class ItemController {
   async getItemsForPruchaseInvoice(req: Request, res: Response) {
     try {
       const items = await ItemService.getItemsForPruchaseInvoice();
-    
-const refacotredItems=items.map((item)=>{
-  return {
-    id:item.id,
-    value:item.id,
-    name:item.name,
-    label:item.name
-  }
-})
+
+      const refacotredItems = items.map((item) => {
+        return {
+          id: item.id,
+          value: item.id,
+          name: item.name,
+          label: item.name
+        }
+      })
 
       res.json(refacotredItems);
     } catch (error) {
@@ -189,9 +187,7 @@ const refacotredItems=items.map((item)=>{
   async updateItem(req: Request, res: Response) {
     try {
       const { id } = req.params;
-      console.log(id);
-    
-    const item = await ItemService.updateItem(id, req.body);
+      const item = await ItemService.updateItem(id, req.body);
 
       return res.status(200).json(item);
     } catch (error) {
@@ -201,9 +197,25 @@ const refacotredItems=items.map((item)=>{
   async getItemByIdForPurchaseInvoice(req: Request, res: Response) {
     try {
       const { id } = req.params;
-    
-    const item = await ItemService.getItemByIdForPurchaseInvoice(id);
-      return res.status(200).json(item);
+
+      const item = await ItemService.getItemByIdForPurchaseInvoice(id);
+   
+      const refacotredItems = {
+        ...item,
+        invoiceQty: 1,
+        itemId: item["id"],
+        //qty: item["qty"],
+        // purchaseOrderId: item["purchase_order_id"],
+        // price: item["price"],
+        itemName: item["name"],
+        itemColor: item["color"].color,
+        itemSize: item["size"].size,
+        categoryName: item["category"].name,
+
+
+      }
+
+      return res.status(200).json(refacotredItems);
     } catch (error) {
       return res.status(500).json({ error: 'Internal Server Error' });
     }
