@@ -4,79 +4,121 @@ import PurchasedOrderService from '../services/PurchasedOrderService';
 class ItemController {
   async getItems(req: Request, res: Response) {
     try {
-      const items = await ItemService.getItems();
-      const arrangedItems = items?.purchasedItems.map((item) => {
-        return {
-          id: item.id,
-          itemId: item["item_id"],
-          qty: item["qty"],
-          purchaseOrderId: item["purchase_order_id"],
-          price: item["price"],
-          selling_price: item["item"].selling_price,
-          category_id: item["item"].category_id,
-          name: item["item"].name,
-          itemCode: item["item"].code,
-          color_id: item["item"].color_id,
-          size_id: item["item"].size_id,
-          itemColor: item["item"]['color'].color,
-          itemSize: item["item"]['size'].size,
-          categoryName: item["item"]['category'].name
-        }
-      })
+        // Step 1: Fetch items from ItemService
+        const items = await ItemService.getItems();
+        
+        // Destructure purchasedItems and orderedItems from items
+        const { purchasedItems, orderedItems } = items;
 
+        // Step 2: Arrange purchasedItems data in desired format
+        const arrangedItems = purchasedItems.map((item) => {
+            return {
+                // Mapping properties for purchased items
+                id: item.id,
+                itemId: item["item_id"],
+                qty: item["qty"],
+                purchaseOrderId: item["purchase_order_id"],
+                price: item["price"],
+                selling_price: item["item"].selling_price,
+                category_id: item["item"].category_id,
+                name: item["item"].name,
+                itemCode: item["item"].code,
+                color_id: item["item"].color_id,
+                size_id: item["item"].size_id,
+                itemColor: item["item"]['color'].color,
+                itemSize: item["item"]['size'].size,
+                categoryName: item["item"]['category'].name
+            };
+        });
 
-      // Create a map to store the items with the same itemId grouped into arrays
+        // Step 3: Group items by itemId using a Map
+        const itemMap = new Map<string, any>();
+        arrangedItems.forEach((item) => {
+            const { itemId, qty, price } = item;
 
-      const itemMap = new Map<string, any>();
-      arrangedItems.forEach((item) => {
-        const { itemId, qty, price } = item;
+            if (itemMap.has(itemId)) {
+                const existingItem = itemMap.get(itemId);
+                existingItem.qty += qty;
+                existingItem.price += price;
+                existingItem.count++;
+            } else {
+                itemMap.set(itemId, { ...item, count: 1 });
+            }
+        });
 
-        if (itemMap.has(itemId)) {
-          const existingItem = itemMap.get(itemId);
-          existingItem.qty += qty;
-          existingItem.price += price;
-          existingItem.count++;
-        } else {
-          itemMap.set(itemId, { ...item, count: 1 });
-        }
-      });
+        // Step 4: Convert Map values to an array of arrays
+        const groupedArray = Array.from(itemMap.values());
 
-      // Convert the itemMap values (arrays of items with the same itemId) into an array of arrays
-      const groupedArray = Array.from(itemMap.values())
-      const finalItems = groupedArray.map((item) => {
-        return {
-          ...item,
-          price: item.price / item.count
-        };
-      });
+        // Step 5: Calculate final prices for grouped items
+        const finalItems = groupedArray.map((item) => {
+            return {
+                ...item,
+                price: item.price / item.count
+            };
+        });
 
+        // Step 6: Filter items not in finalItems
+        const filteredItems = items?.items.filter(item => {
+            return !finalItems.some(finalItem => finalItem.itemId === item.id);
+        });
 
-      const filteredItems = items?.items.filter(item => {
-        return !finalItems.some(finalItem => finalItem.itemId === item.id);
-      });
+        // Step 7: Prepare fixed items
+        const fixedItems = filteredItems.flatMap((item) => {
+            return {
+                ...item,
+                qty: 0,
+                itemId: item.id,
+                itemSize: item['size'].size,
+                itemColor: item['color'].color,
+                categoryName: item['category'].name,
+                purchasedPrice: 0,
+                count: 0,
+                sellingPrice: item.selling_price,
+                price: 0,
+            }
+        });
 
+        // Step 8: Combine finalItems and fixedItems
+        const allItems = finalItems.concat(fixedItems);
 
-      const fixedItems = filteredItems.flatMap((item) => {
-        return {
-          ...item,
-          qty: 0,
-          itemSize: item['size'].size,
-          itemColor: item['color'].color,
-          categoryName: item['category'].name,
-          purchasedPrice: 0,
-          count: 0,
-          sellingPrice: item.selling_price,
-          price: 0,
+        // Step 9: Calculate sold quantities by item_id
+        const sumQtyByItem = {};
 
-        }
-      })
-      console.log(fixedItems);
+        orderedItems.forEach(entry => {
+            const item_id = entry.item_id;
+            const soldQty = entry.qty;
 
-      res.json(finalItems.concat(fixedItems));
+            if (sumQtyByItem[item_id]) {
+                sumQtyByItem[item_id] += soldQty;
+            } else {
+                sumQtyByItem[item_id] = soldQty;
+            }
+        });
+
+        // Step 10: Transform result to desired format
+        const transformedResult = Object.keys(sumQtyByItem).map(item_id => ({ item_id, soldQty: sumQtyByItem[item_id] }));
+
+        // Step 11: Merge transformed result with items and adjust quantities
+        const finalResult = allItems.map(item => {
+            const found = transformedResult.find(element => element.item_id === item.itemId);
+            return {
+                ...item,
+                soldQty: found ? found.soldQty : 0
+            };
+        }).map((item) => {
+            return {
+                ...item,
+                qty: item.qty - item.soldQty
+            }
+        });
+
+        // Step 12: Respond with final result
+        res.json(finalResult);
     } catch (error) {
-      res.status(500).json({ error: 'Internal Server Error' + error.message });
+        res.status(500).json({ error: 'Internal Server Error' + error.message });
     }
-  }
+}
+
 
 
 
@@ -199,7 +241,7 @@ class ItemController {
       const { id } = req.params;
 
       const item = await ItemService.getItemByIdForPurchaseInvoice(id);
-   
+
       const refacotredItems = {
         ...item,
         invoiceQty: 1,
