@@ -189,9 +189,20 @@ const refacotredItems=items.map((item)=>{
   async updateItem(req: Request, res: Response) {
     try {
       const { id } = req.params;
+      console.log(id);
     
     const item = await ItemService.updateItem(id, req.body);
 
+      return res.status(200).json(item);
+    } catch (error) {
+      return res.status(500).json({ error: 'Internal Server Error' });
+    }
+  }
+  async getItemByIdForPurchaseInvoice(req: Request, res: Response) {
+    try {
+      const { id } = req.params;
+    
+    const item = await ItemService.getItemByIdForPurchaseInvoice(id);
       return res.status(200).json(item);
     } catch (error) {
       return res.status(500).json({ error: 'Internal Server Error' });
