@@ -7,7 +7,9 @@ const router = Router();
 
 router.use(passport.authenticate("jwt", { session: false }));
 router.get(routes.orders.sellOrders.getSellOrders, SellOrderController.getSellOrders);
+router.get(routes.orders.sellOrders.getItemsBySellOrder, SellOrderController.getSellOrdersByOrderID);
 router.post(routes.orders.sellOrders.createSellOrder, SellOrderController.createOrder);
+router.patch(routes.orders.sellOrders.updateSellItem, SellOrderController.updateSellOrderItem);
 
 
 

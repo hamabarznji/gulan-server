@@ -1,14 +1,47 @@
 import { Request, Response } from 'express';
 import SellOrderService from '../services/SellOrderService';
-import { or } from 'sequelize';
 class SellOrderController {
   async getSellOrders(req: Request, res: Response) {
     try {
       const orders = await SellOrderService.getSellOrders()
-      return res.status(200).json(orders);
+      const refactoredOrders=orders.map((order:any,index:number)=>{
+
+
+        return{
+          ...order,
+          index:index+1,
+          createdBy: order['user'].username,
+          createdAt: order['createdAt'].toLocaleString(),
+          updatedAt: order['updatedAt'].toLocaleString(),
+        }
+      });
+      
+      return res.status(200).json(refactoredOrders);
 
 
 
+    } catch (error) {
+      res.status(500).json({ error: 'Internal Server Error' + error.message });
+    }
+  }
+  async getSellOrdersByOrderID(req: Request, res: Response) {
+    const {id}=req.params
+    try {
+      const ordredItems = await SellOrderService.getSellOrdersByOrderID(id)
+      const refactoredOrderedItems=ordredItems.map((item:any,index:number)=>{
+        return{
+          ...item,
+          index:index+1,
+          itemName:item['item'].name,
+          itemCategory:item['item']['category'].name,
+          itemColor:item['item']['color'].color,
+          itemSize:item['item']['size'].size,
+
+
+        }
+      })
+      
+      return res.status(200).json(refactoredOrderedItems);
     } catch (error) {
       res.status(500).json({ error: 'Internal Server Error' + error.message });
     }
@@ -40,9 +73,21 @@ class SellOrderController {
       console.error(error)
       res.status(500).json({ error: 'Internal Server Error' + error.message });
     }
-
   }
 
+  async updateSellOrderItem(req: Request, res: Response) {
+    const {id}=req.params
+    try {
+      const updatedOrderItem = await SellOrderService.updateSellOrderItem(id,req.body)
+      return res.status(200).json(updatedOrderItem);
+    } catch (error) {
+      console.error(error)
+      res.status(500).json({ error: 'Internal Server Error' + error.message });
+    }
+
+  
+
+  }
 }
 
 export default new SellOrderController();
