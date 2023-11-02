@@ -1,7 +1,6 @@
 import { Router, Request, Response } from "express";
 import routes from "../../routes.json";
 import UserController from "../controllers/UserController";
-import verifyAuth from "../../middleware/verifyAuth";
 import passport from "../../middleware/AuthMiddleware";
 const router = Router();
 
