@@ -1,13 +1,12 @@
 import passport from "passport";
 import { Strategy as JwtStrategy, ExtractJwt, VerifiedCallback } from "passport-jwt";
-import { Request } from "express";
 import prisma from "../PrismaInstance"
 
+
 const jwtOptions = {
-    secretOrKey: "mbsT",
+    secretOrKey: process.env.JWT_SECRET_KEY,
     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken()
 };
-
 
 passport.use(new JwtStrategy(jwtOptions, async (payload: any, done: VerifiedCallback) => {
 

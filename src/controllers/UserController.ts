@@ -86,7 +86,7 @@ class UserController {
         return res.status(401).json({ error: 'Invalid Credentials' });
       }
 
-      const token = jwt.sign({ id: user.id, role: user.role, themeColor: user.themeColor }, 'mbsT');
+      const token = jwt.sign({ id: user.id, role: user.role, themeColor: user.themeColor }, process.env.JWT_SECRET_KEY);
       res.cookie('token', token, { httpOnly: true  }); // Expires in 1 hour maxAge: 3600000
 
       return res.json({ id: user.id, token, role: user.role });
