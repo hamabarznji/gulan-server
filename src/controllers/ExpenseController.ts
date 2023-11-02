@@ -85,7 +85,6 @@ class ExpenseController {
   }
 
 
-
   async getTopExpenses(req: Request, res: Response) {
 
     try {
@@ -123,7 +122,28 @@ class ExpenseController {
   }
 
 
+  async getExpenseSummaryReport(req: Request, res: Response) {
 
+    try {
+
+    
+      const expenses = await ExpenseService.getExpenseSummaryReport();
+      const summaryReport = expenses.map((expense) => {
+        return{
+          categoryName:expense.categoryName,
+          sum:expense._sum.amount,
+          avg:expense._avg.amount
+        }
+      })
+
+
+      return res.json(summaryReport);
+
+    } catch (error) {
+
+      return res.status(500).json({ error: `Internal Server Error${error}` });
+    }
+  }
 
 }
 

@@ -82,6 +82,40 @@ class ExpenseService {
       throw new Error('Failed to retrieve expenses: ' + error.message);
     }
   }
+
+  async  getExpenseSummaryReport() {
+    
+
+    try {
+      const expenseSummary = await prisma.expense.groupBy({
+        by: ['categoryId'],
+        _sum: {
+          amount: true,
+        },
+        _avg: {
+          amount: true,
+        },
+      });
+
+      const expenses=await prisma.expenseCategory.findMany()
+      const expensesSummaryWithCategoryName=expenseSummary.map((expenseSum)=>{
+        const {categoryId, }=expenseSum
+        const categoryName=expenses.find((expense)=>expense.id===categoryId).name
+
+        return {
+          ...expenseSum,
+          categoryName:categoryName
+        
+        }
+
+      })
+    
+      return expensesSummaryWithCategoryName;
+
+    } catch (error) {
+      throw new Error('Failed to retrieve expenses: ' + error.message);
+    }
+  }
 }
 
 export default new ExpenseService();
