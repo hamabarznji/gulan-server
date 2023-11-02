@@ -14,7 +14,8 @@
     "updateExpense": "/api/expenses",
     "deleteExpense": "/api/expenses/:id",
     "getTopExpense": "/api/expenses/top",
-    "getExpenseCategories": "/api/expenses/categories"
+    "getExpenseCategories": "/api/expenses/categories",
+    "getExpenseSummaryReport": "/api/expenses/summary_report"
   },
   "items": {
     "getItems": "/api/items",
