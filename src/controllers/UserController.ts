@@ -69,9 +69,6 @@ class UserController {
     }
   }
 
-// Assuming you have imported jwt and have access to process.env.JWT_SECRET_KEY
-
-// ...
 
 async login(req: Request, res: Response) {
   try {
@@ -94,7 +91,7 @@ async login(req: Request, res: Response) {
 
     res.cookie('token', token, { httpOnly: true });
     return res.json({ id: user.id, token, role: user.role });
-  } catch (error) {
+  } catch (error:any) {
     res.status(500).json({ error: error.message });
   }
 }
