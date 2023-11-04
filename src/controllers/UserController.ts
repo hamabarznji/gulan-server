@@ -69,20 +69,36 @@ class UserController {
     }
   }
 
-  async login(req: Request, res: Response) {
-    try {
-      const { username, password } = req.body;
-      const user = await UserService.login(username);
-      if (user === null || !await bcrypt.compare(password, user.password)) {
-        return res.status(401).json({ error: 'Invalid Credentials' });
-      }
-      const token = jwt.sign({ id: user.id, role: user.role, themeColor: user.themeColor }, process.env.JWT_SECRET_KEY);
-      res.cookie('token', token, { httpOnly: true });
-      return res.json({ id: user.id, token, role: user.role });
-    } catch (error:any) {
-      res.status(500).json({ error: error.message });
+// Assuming you have imported jwt and have access to process.env.JWT_SECRET_KEY
+
+// ...
+
+async login(req: Request, res: Response) {
+  try {
+    const { username, password } = req.body;
+    const user = await UserService.login(username);
+
+    if (!user || !await bcrypt.compare(password, user.password)) {
+      return res.status(401).json({ error: 'Invalid Credentials' });
     }
+
+    if (!process.env.JWT_SECRET_KEY) {
+      return res.status(500).json({ error: 'JWT secret key is not configured' });
+    }
+
+    const token = jwt.sign(
+      { id: user.id, role: user.role, themeColor: user.themeColor },
+      process.env.JWT_SECRET_KEY,
+      { expiresIn: '1h' } // Adjust expiration time as needed
+    );
+
+    res.cookie('token', token, { httpOnly: true });
+    return res.json({ id: user.id, token, role: user.role });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
   }
+}
+
 }
 
 export default new UserController();
