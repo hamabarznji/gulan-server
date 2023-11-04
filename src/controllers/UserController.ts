@@ -2,6 +2,8 @@ import UserService from '../services/UserService';
 import jwt from 'jsonwebtoken';
 import { Request, Response } from 'express';
 import bcrypt from 'bcrypt';
+
+// @ts-ignore
 class UserController {
   async getUsers(req: Request, res: Response) {
     try {
