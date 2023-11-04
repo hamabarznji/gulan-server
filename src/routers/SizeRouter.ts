@@ -1,5 +1,5 @@
 import { Router } from "express";
-import routes from "../../routes.json";
+const routes = require('../../routes.json');
 import SizeController from "../controllers/SizeController";
 import passport from "../../middleware/AuthMiddleware";
 const router = Router();

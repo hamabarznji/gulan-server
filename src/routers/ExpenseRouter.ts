@@ -1,5 +1,5 @@
 import { Router } from "express";
-import routes from "../../routes.json";
+const routes = require('../../routes.json');
 import ExpenseController from "../controllers/ExpenseController";
 import passport from "../../middleware/AuthMiddleware";
 import requireRoles from "../../middleware/requireRoles";
