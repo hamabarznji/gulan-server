@@ -11,7 +11,7 @@ class UserController {
         return { id: user.id, name: user.username, role: user.role, themeColor: user.themeColor }
       })
       res.json(foundedUsers);
-    } catch (error) {
+    } catch (error:any) {
       res.status(500).json({ error: 'Internal Server Error' });
     }
   }
@@ -24,7 +24,7 @@ class UserController {
         return res.status(404).json({ error: 'User not found' });
       }
       res.json({ id: user.id, name: user.username, role: user.role, themeColor: user.themeColor });
-    } catch (error) {
+    } catch (error:any) {
       res.status(500).json({ error: 'Internal Server Error' });
     }
   }
@@ -39,7 +39,7 @@ class UserController {
         return res.status(400).json({ error: 'User already exists' });
       }
       res.json(user);
-    } catch (error) {
+    } catch (error:any) {
       res.status(500).json({ error: error.message });
     }
   }
@@ -64,7 +64,7 @@ class UserController {
       }
 
       return res.json(user);
-    } catch (error) {
+    } catch (error:any) {
       return res.status(500).json({ error: 'Internal Server Error' });
     }
   }
@@ -79,7 +79,7 @@ class UserController {
       const token = jwt.sign({ id: user.id, role: user.role, themeColor: user.themeColor }, process.env.JWT_SECRET_KEY);
       res.cookie('token', token, { httpOnly: true });
       return res.json({ id: user.id, token, role: user.role });
-    } catch (error) {
+    } catch (error:any) {
       res.status(500).json({ error: error.message });
     }
   }
