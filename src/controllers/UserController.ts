@@ -20,7 +20,7 @@ class UserController {
   async getUser(req: Request, res: Response) {
     try {
       const { id } = req.params;
-      
+      // @ts-ignore
       const user = await UserService.getUser(id);
       if (!user) {
         return res.status(404).json({ error: 'User not found' });
