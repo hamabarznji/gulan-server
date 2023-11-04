@@ -5,8 +5,10 @@
     "strict": false,
     "noImplicitAny": false,
     "strictNullChecks": false,
+    "module": "CommonJS",
+    "target": "ES6",
+    "moduleResolution": "Node",
 
-        "outDir": "./dist", // This is an example, you can choose a different directory
-
+        "outDir": "./dist"
   }
 }
