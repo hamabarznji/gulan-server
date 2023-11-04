@@ -16,15 +16,15 @@ class Seeder {
     try {
       await prisma.$transaction(async () => {
         await seedUser(prisma);
-        await seedExpenseCategories(prisma);
-        await seedExpenses(prisma);
-        await seedItemCategories(prisma)
-        await seedVendors(prisma)
-        await seedSizes(prisma)
-        await seedColors(prisma)
-        await seedItems(prisma)
-        await seedPurchaseOrders(prisma)
-        await seedPurchaseItems(prisma)
+        // await seedExpenseCategories(prisma);
+        // await seedExpenses(prisma);
+        // await seedItemCategories(prisma)
+        // await seedVendors(prisma)
+        // await seedSizes(prisma)
+        // await seedColors(prisma)
+        // await seedItems(prisma)
+        // await seedPurchaseOrders(prisma)
+        // await seedPurchaseItems(prisma)
       });
     } catch (error) {
       throw error;
