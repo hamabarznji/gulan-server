@@ -1,6 +1,8 @@
 {
   "compilerOptions": {
     "resolveJsonModule": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+        "outDir": "./dist", // This is an example, you can choose a different directory
+
   }
 }
