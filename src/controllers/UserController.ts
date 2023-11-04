@@ -20,6 +20,7 @@ class UserController {
   async getUser(req: Request, res: Response) {
     try {
       const { id } = req.params;
+      
       const user = await UserService.getUser(id);
       if (!user) {
         return res.status(404).json({ error: 'User not found' });
@@ -34,7 +35,7 @@ class UserController {
 
   async createUser(req: Request, res: Response) {
     try {
-
+      // @ts-ignore
       const user = await UserService.createUser({
         ...req.body,
         password: bcrypt.hashSync(req.body.password, 10)
@@ -55,6 +56,7 @@ class UserController {
   
       if (password) {
         const hashedPassword = bcrypt.hashSync(password, 10);
+        // @ts-ignore
         const user = await UserService.updateUser(id, {
           ...req.body,
           password: hashedPassword,
@@ -81,6 +83,7 @@ class UserController {
   async login(req: Request, res: Response) {
     try {
       const { username, password } = req.body;
+      // @ts-ignore
       const user = await UserService.login(username);
       const isPasswordCorrect = await bcrypt.compare(password, user.password);
    
