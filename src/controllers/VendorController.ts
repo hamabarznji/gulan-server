@@ -8,7 +8,7 @@ class VendorContoller {
 
 
 
-    } catch (error) {
+    } catch (error:any) {
       res.status(500).json({ error: 'Internal Server Error' + error.message });
     }
 
@@ -21,7 +21,7 @@ class VendorContoller {
         ...req.body,
       });
       res.json(vendor);
-    } catch (error) {
+    } catch (error:any) {
       res.status(500).json({ error: error.message });
     }
   }
@@ -39,7 +39,7 @@ class VendorContoller {
       }
   
       return res.json(vendor);
-    } catch (error) {
+    } catch (error:any) {
       return res.status(500).json({ error: 'Internal Server Error' });
     }
   }

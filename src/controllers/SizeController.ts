@@ -8,7 +8,7 @@ class SizeController {
 
 
 
-    } catch (error) {
+    } catch (error:any) {
       res.status(500).json({ error: 'Internal Server Error' + error.message });
     }
 
@@ -21,7 +21,7 @@ class SizeController {
         ...req.body,
       });
       res.json(size);
-    } catch (error) {
+    } catch (error:any) {
       res.status(500).json({ error: error.message });
     }
   }
@@ -38,7 +38,7 @@ class SizeController {
       }
 
       return res.json(color);
-    } catch (error) {
+    } catch (error:any) {
       return res.status(500).json({ error: 'Internal Server Error' });
     }
   }

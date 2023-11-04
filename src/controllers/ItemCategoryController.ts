@@ -8,7 +8,7 @@ class ItemCategoryController {
 
 
 
-    } catch (error) {
+    } catch (error:any) {
       res.status(500).json({ error: 'Internal Server Error' + error.message });
     }
 
@@ -22,7 +22,7 @@ class ItemCategoryController {
         ...req.body,
       });
       res.json(category);
-    } catch (error) {
+    } catch (error:any) {
       res.status(500).json({ error: error.message });
     }
   }
@@ -41,7 +41,7 @@ class ItemCategoryController {
       }
 
       return res.json(cateogry);
-    } catch (error) {
+    } catch (error:any) {
       return res.status(500).json({ error: 'Internal Server Error' });
     }
   }

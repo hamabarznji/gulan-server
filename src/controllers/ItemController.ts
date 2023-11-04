@@ -114,7 +114,7 @@ class ItemController {
 
         // Step 12: Respond with final result
         res.json(finalResult);
-    } catch (error) {
+    } catch (error:any) {
         res.status(500).json({ error: 'Internal Server Error' + error.message });
     }
 }
@@ -126,7 +126,7 @@ class ItemController {
     try {
       const itemInfo = await ItemService.getItemCatColorSize();
       res.json(itemInfo);
-    } catch (error) {
+    } catch (error:any) {
       res.status(500).json({ error: 'Internal Server Error: ' + error.message });
     }
   }
@@ -188,7 +188,7 @@ class ItemController {
 
 
       res.json(finalItems);
-    } catch (error) {
+    } catch (error:any) {
       res.status(500).json({ error: 'Internal Server Error' + error.message });
     }
   }
@@ -206,7 +206,7 @@ class ItemController {
       })
 
       res.json(refacotredItems);
-    } catch (error) {
+    } catch (error:any) {
       res.status(500).json({ error: 'Internal Server Error' + error.message });
     }
   }
@@ -220,7 +220,7 @@ class ItemController {
 
 
       res.json(item);
-    } catch (error) {
+    } catch (error:any) {
       res.status(500).json({ error: error.message });
     }
   }
@@ -232,7 +232,7 @@ class ItemController {
       const item = await ItemService.updateItem(id, req.body);
 
       return res.status(200).json(item);
-    } catch (error) {
+    } catch (error:any) {
       return res.status(500).json({ error: 'Internal Server Error' });
     }
   }
@@ -258,7 +258,7 @@ class ItemController {
       }
 
       return res.status(200).json(refacotredItems);
-    } catch (error) {
+    } catch (error:any) {
       return res.status(500).json({ error: 'Internal Server Error' });
     }
   }

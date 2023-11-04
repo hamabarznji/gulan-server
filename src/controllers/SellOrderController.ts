@@ -20,7 +20,7 @@ class SellOrderController {
 
 
 
-    } catch (error) {
+    } catch (error:any) {
       res.status(500).json({ error: 'Internal Server Error' + error.message });
     }
   }
@@ -42,7 +42,7 @@ class SellOrderController {
       })
       
       return res.status(200).json(refactoredOrderedItems);
-    } catch (error) {
+    } catch (error:any) {
       res.status(500).json({ error: 'Internal Server Error' + error.message });
     }
   }
@@ -69,7 +69,7 @@ class SellOrderController {
         throw new Error('Failed to add ordered items');
       }
       return res.status(200).json(newOrder);
-    } catch (error) {
+    } catch (error:any) {
       console.error(error)
       res.status(500).json({ error: 'Internal Server Error' + error.message });
     }
@@ -80,7 +80,7 @@ class SellOrderController {
     try {
       const updatedOrderItem = await SellOrderService.updateSellOrderItem(id,req.body)
       return res.status(200).json(updatedOrderItem);
-    } catch (error) {
+    } catch (error:any) {
       console.error(error)
       res.status(500).json({ error: 'Internal Server Error' + error.message });
     }

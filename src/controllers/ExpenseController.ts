@@ -17,7 +17,7 @@ class ExpenseController {
         };
       });
       res.json(formattedExpenses);
-    } catch (error) {
+    } catch (error:any) {
       res.status(500).json({ error: 'Internal Server Error' });
     }
   }
@@ -31,7 +31,7 @@ class ExpenseController {
   //     }
   //     res.json(expense
   //     );
-  //   } catch (error) {
+  //   } catch (error:any) {
   //     res.status(500).json({ error: 'Internal Server Error' });
   //   }
   // }
@@ -56,7 +56,7 @@ class ExpenseController {
       }
 
       res.json(expense);
-    } catch (error) {
+    } catch (error:any) {
       res.status(500).json({ error: error.message });
     }
   }
@@ -78,7 +78,7 @@ class ExpenseController {
       const expense = await ExpenseService.updateExpense(id, formattedExpenses);
       return res.json(expense);
 
-    } catch (error) {
+    } catch (error:any) {
 
       return res.status(500).json({ error: 'Internal Server Error' });
     }
@@ -115,7 +115,7 @@ class ExpenseController {
 
       return res.status(200).json({data:sortedSummedGroupedExpensesArray,labels});
 
-    } catch (error) {
+    } catch (error:any) {
 
       return res.status(500).json({ error: 'Internal Server Error' });
     }
@@ -139,7 +139,7 @@ class ExpenseController {
 
       return res.json(summaryReport);
 
-    } catch (error) {
+    } catch (error:any) {
 
       return res.status(500).json({ error: `Internal Server Error${error}` });
     }

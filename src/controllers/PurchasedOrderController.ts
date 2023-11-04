@@ -19,7 +19,7 @@ class PurchasedOrderContoller {
 
 
 
-    } catch (error) {
+    } catch (error:any) {
       res.status(500).json(error.message );
     }
 
@@ -32,7 +32,7 @@ class PurchasedOrderContoller {
 
 
 
-    } catch (error) {
+    } catch (error:any) {
       res.status(500).json({ error: 'Internal Server Error' + error.message });
     }
 
@@ -69,7 +69,7 @@ class PurchasedOrderContoller {
       // const updatedObject = { ...rest, ...item };
 
       return res.status(200).json(items);
-    } catch (error) {
+    } catch (error:any) {
       res.status(500).json({ error: 'Internal Server Error' + error.message });
     }
   }
@@ -82,7 +82,7 @@ class PurchasedOrderContoller {
    
       return res.status(200).json(updatedItems);
 
-    } catch (error) {
+    } catch (error:any) {
       res.status(500).json({ error: 'Internal Server Error' + error.message });
     }
   

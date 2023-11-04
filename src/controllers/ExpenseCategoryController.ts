@@ -6,7 +6,7 @@ class ExpenseCategoryController {
       const expenseCategories = await ExpenseCategoryService.getExpenseCategories();
       
       res.json(expenseCategories);
-    } catch (error) {
+    } catch (error:any) {
       res.status(500).json({ error: 'Internal Server Error' });
     }
   }
