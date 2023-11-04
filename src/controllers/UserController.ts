@@ -10,7 +10,7 @@ class UserController {
         return { id: user.id, name: user.username, role: user.role, themeColor: user.themeColor }
       })
       res.json(foundedUsers);
-    } catch (error) {
+    } catch (error:any) {
       res.status(500).json({ error: 'Internal Server Error' });
     }
   }
@@ -24,7 +24,7 @@ class UserController {
       }
       res.json({ id: user.id, name: user.username, role: user.role, themeColor: user.themeColor }
       );
-    } catch (error) {
+    } catch (error:any) {
       res.status(500).json({ error: 'Internal Server Error' });
     }
   }
@@ -43,7 +43,7 @@ class UserController {
       }
 
       res.json(user);
-    } catch (error) {
+    } catch (error:any) {
       res.status(500).json({ error: error.message });
     }
   }
@@ -67,7 +67,7 @@ class UserController {
       }
   
       return res.json(user);
-    } catch (error) {
+    } catch (error:any) {
       return res.status(500).json({ error: 'Internal Server Error' });
     }
   }
@@ -90,7 +90,7 @@ class UserController {
       res.cookie('token', token, { httpOnly: true  }); // Expires in 1 hour maxAge: 3600000
 
       return res.json({ id: user.id, token, role: user.role });
-    } catch (error) {
+    } catch (error:any) {
       res.status(500).json({ error: error.message });
     }
   }
