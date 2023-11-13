@@ -34,11 +34,20 @@ app.use(ColorssRouter);
 app.use(SizeRouter);
 app.use(SellOrderRouter);
 
+const privateKeyPath = process.env.PRIVATE_KEY_PATH;
+const certificatePath = process.env.CERTIFICATE_PATH;
+
+if (!privateKeyPath || !certificatePath) {
+  console.error('Private key path or certificate path is not defined.');
+  // Handle the error or exit gracefully
+}
+
 const serverOptions = {
-  key: fs.readFileSync(process.env.PRIVATE_KEY_PATH.toString()),
-  cert: fs.readFileSync(process.env.CERTIFICATE_PATH.toString()),
-  passphrase:process.env.PASS_CREDENTIALS
+  key: fs.readFileSync(privateKeyPath, 'utf-8'),
+  cert: fs.readFileSync(certificatePath, 'utf-8'),
+  passphrase: process.env.PASS_CREDENTIALS,
 };
+
 const server = https.createServer(serverOptions, app);
 
 
