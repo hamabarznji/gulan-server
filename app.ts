@@ -35,8 +35,8 @@ app.use(SizeRouter);
 app.use(SellOrderRouter);
 
 const serverOptions = {
-  key: fs.readFileSync(process.env.PRIVATE_KEY_PATH),
-  cert: fs.readFileSync(process.env.CERTIFICATE_PATH),
+  key: fs.readFileSync(process.env.PRIVATE_KEY_PATH.toString()),
+  cert: fs.readFileSync(process.env.CERTIFICATE_PATH.toString()),
   passphrase:process.env.PASS_CREDENTIALS
 };
 const server = https.createServer(serverOptions, app);
