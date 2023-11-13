@@ -1,8 +1,5 @@
-import * as dotenv from 'dotenv';
+import * as dotenv from 'dotenv'
 dotenv.config(); 
-
-import https from 'https';
-import fs from 'fs';
 import cors from 'cors';
 import express from 'express';
 import { PrismaClient } from '@prisma/client';
@@ -34,24 +31,9 @@ app.use(ColorssRouter);
 app.use(SizeRouter);
 app.use(SellOrderRouter);
 
-const privateKeyPath = process.env.PRIVATE_KEY_PATH;
-const certificatePath = process.env.CERTIFICATE_PATH;
-
-if (!privateKeyPath || !certificatePath) {
-  console.error('Private key path or certificate path is not defined.');
-  // Handle the error or exit gracefully
-}
-
-const serverOptions = {
-  key: fs.readFileSync(privateKeyPath, 'utf-8'),
-  cert: fs.readFileSync(certificatePath, 'utf-8'),
-  passphrase: process.env.PASS_CREDENTIALS,
-};
-
-const server = https.createServer(serverOptions, app);
 
 
-server.listen(process.env.PORT || 3001, () =>
+app.listen(process.env.PORT || 3001, () =>
   console.log(`Listening on port ${3001}`)
 );
  
