@@ -1,9 +1,10 @@
 import * as dotenv from 'dotenv';
 dotenv.config(); 
 
-
-import express from 'express';
+import https from 'https';
+import fs from 'fs';
 import cors from 'cors';
+import express from 'express';
 import { PrismaClient } from '@prisma/client';
 import UserRouter from './src/routers/UserRouter';
 import ExpenseRouter from './src/routers/ExpenseRouter';
@@ -33,8 +34,15 @@ app.use(ColorssRouter);
 app.use(SizeRouter);
 app.use(SellOrderRouter);
 
+const serverOptions = {
+  key: fs.readFileSync(process.env.PRIVATE_KEY_PATH),
+  cert: fs.readFileSync(process.env.CERTIFICATE_PATH),
+  passphrase:process.env.PASS_CREDENTIALS
+};
+const server = https.createServer(serverOptions, app);
 
-app.listen(process.env.PORT || 3001, () =>
+
+server.listen(process.env.PORT || 3001, () =>
   console.log(`Listening on port ${3001}`)
 );
  
